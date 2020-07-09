@@ -113,14 +113,14 @@ public class Duel : MonoBehaviour
         {
             // Calculate the damage dealt.
             int weapDam = random.Next(attacker.minWeaponDamage, attacker.maxWeaponDamage);
-            int damage = (int)Math.Floor((weapDam * attacker.physicalMultiplier) * ((float)defender.defense / 100));
+            int damage = (int)Math.Floor((weapDam * attacker.physicalMultiplier) * ((float)(100 - defender.defense) / 100));
             if (random.Next(1, 100) < attacker.criticalStrikeChance)
             {
                 if (random.Next(1, 100) < 20)
                 {
                     // SUPER CRITICAL!
                     // Double original damage and ignores defence.
-                    damage = (int)Math.Floor((damage / ((float)defender.defense / 100)) * 2);
+                    damage = (int)Math.Floor((damage / ((float)(100 - defender.defense) / 100)) * 2);
                     Debug.Log(attacker.username + " smashed " + defender.username + " for a SUPER critical hit! They dealt " + damage.ToString() + " damage!");
                     defender.currentHP -= damage;
                     Debug.Log(defender.username + " is on " + defender.currentHP + "❤");
@@ -128,7 +128,7 @@ public class Duel : MonoBehaviour
                 else
                 {
                     // Critical Hit!
-                    damage = (int)Math.Floor(damage * 1.5);
+                    damage = (int)Math.Floor((damage / ((float)(100 - defender.defense) / 100)) * 1.5);
                     Debug.Log(attacker.username + " smacked " + defender.username + " for a critical hit! They dealt " + damage.ToString() + " damage!");
                     defender.currentHP -= damage;
                     Debug.Log(defender.username + " is on " + defender.currentHP + "❤");
@@ -175,7 +175,7 @@ public class Duel : MonoBehaviour
         {
             // Calculate the damage dealt.
             int weapDam = random.Next(attacker.minWeaponDamage, attacker.maxWeaponDamage);
-            int damage = (int)Math.Floor((weapDam * attacker.physicalMultiplier) * ((float)defender.defense / 100));
+            int damage = (int)Math.Floor((weapDam * attacker.physicalMultiplier) * ((float)(100 - defender.defense) / 100));
             damage = (int)Math.Floor(damage * 0.5);
             if (random.Next(1, 100) < attacker.criticalStrikeChance)
             {
@@ -183,7 +183,7 @@ public class Duel : MonoBehaviour
                 {
                     // SUPER CRITICAL!
                     // Double original damage and ignores defence.
-                    damage = (int)Math.Floor((damage / ((float)defender.defense / 100)) * 2);
+                    damage = (int)Math.Floor((damage / ((float)(100 - defender.defense) / 100)) * 2);
                     Debug.Log(attacker.username + " smashed " + defender.username + " with their secondary weapon for a SUPER critical hit! They dealt " + damage.ToString() + " damage!");
                     defender.currentHP -= damage;
                     Debug.Log(defender.username + " is on " + defender.currentHP + "❤");
@@ -191,7 +191,7 @@ public class Duel : MonoBehaviour
                 else
                 {
                     // Critical Hit!
-                    damage = (int)Math.Floor(damage * 1.5);
+                    damage = (int)Math.Floor((damage / ((float)(100 - defender.defense) / 100)) * 1.5);
                     Debug.Log(attacker.username + " smacked " + defender.username + " with their secondary weapon for a critical hit! They dealt " + damage.ToString() + " damage!");
                     defender.currentHP -= damage;
                     Debug.Log(defender.username + " is on " + defender.currentHP + "❤");
