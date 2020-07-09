@@ -216,6 +216,7 @@ MonoBehaviour:
   minWeaponDamage: 50
   maxWeaponDamage: 100
   hitChance: 80
+  isDuelWield: 0
   physicalMultiplier: 2
   magicalMultiplier: 1
   criticalStrikeChance: 10
@@ -355,12 +356,13 @@ MonoBehaviour:
   currentHP: 2000
   minWeaponDamage: 40
   maxWeaponDamage: 70
-  hitChance: 0
+  hitChance: 90
+  isDuelWield: 0
   physicalMultiplier: 2.5
   magicalMultiplier: 1
-  criticalStrikeChance: 0
-  defense: 0
-  dodgeChance: 0
+  criticalStrikeChance: 30
+  defense: 30
+  dodgeChance: 30
   blockChance: 0
-  resistanceChance: 0
+  resistanceChance: 40
   initiative: 150
