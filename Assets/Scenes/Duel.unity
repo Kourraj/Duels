@@ -217,6 +217,7 @@ MonoBehaviour:
   maxWeaponDamage: 100
   hitChance: 80
   isDuelWield: 0
+  isUsingWand: 1
   physicalMultiplier: 2
   magicalMultiplier: 1
   criticalStrikeChance: 10
@@ -357,7 +358,8 @@ MonoBehaviour:
   minWeaponDamage: 40
   maxWeaponDamage: 70
   hitChance: 90
-  isDuelWield: 0
+  isDuelWield: 1
+  isUsingWand: 0
   physicalMultiplier: 2.5
   magicalMultiplier: 1
   criticalStrikeChance: 30

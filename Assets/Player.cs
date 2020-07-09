@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     [Header("Base")]
     public string username;
-    
+
     // Health Points of the character
     // Maximum and current
     public int maxHP;
@@ -23,6 +23,8 @@ public class Player : MonoBehaviour
     public int hitChance;
     // Are they duel wielding?
     public bool isDuelWield;
+    // TEMP - Have they got a wand?
+    public bool isUsingWand;
 
     [Space]
 

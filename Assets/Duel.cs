@@ -61,18 +61,37 @@ public class Duel : MonoBehaviour
                 break;
 
             // Attacks
+            // First's Attacks
             // Physical Attacks
-            if (DoPhysicalAttack(first, second))
-                break;
-            if (first.isDuelWield)
-                if (DoSecondaryPhysicalAttack(first, second))
+            if (!first.isUsingWand)
+            {
+                if (DoPhysicalAttack(first, second))
                     break;
-            if (DoPhysicalAttack(second, first))
-                break;
-            if (second.isDuelWield)
-                if (DoSecondaryPhysicalAttack(first, second))
+                if (first.isDuelWield)
+                    if (DoSecondaryPhysicalAttack(first, second))
+                        break;
+            }
+            // Magical Attacks
+            else if (first.isUsingWand)
+                if (DoMagicalAttack(first, second))
+                    break;
+            
+            // Second's Attacks
+            // Physical Attacks
+            if (!second.isUsingWand)
+            {
+                if (DoPhysicalAttack(second, first))
+                    break;
+                if (first.isDuelWield)
+                    if (DoSecondaryPhysicalAttack(second, first))
+                        break;
+            }
+            // Magical Attacks
+            else if (second.isUsingWand)
+                if (DoMagicalAttack(second, first))
                     break;
 
+            // Turn Timer. Avoids no damage bug.
             turnCount ++;
             if (turnCount >= 70)
                 break;
@@ -201,6 +220,64 @@ public class Duel : MonoBehaviour
             {
                 // Just a normal hit.
                 Debug.Log(attacker.username + " hit " + defender.username + " with their secondary weapon for " + damage.ToString() + " damage!");
+                defender.currentHP -= damage;
+                Debug.Log(defender.username + " is on " + defender.currentHP + "❤");
+            }
+
+            // Did they die?
+            if (defender.currentHP <= 0)
+            {
+                victor = attacker;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    bool DoMagicalAttack(Player attacker, Player defender)
+    {
+        // attacker Attacks
+
+        // Check they hit the person.
+        if (random.Next(1, 100) > attacker.hitChance)
+        {
+            Debug.Log(attacker.username + " took a swing at " + defender.username + " and missed!");
+        }
+        else if (random.Next(1, 100) <= defender.resistanceChance)
+        {
+            Debug.Log(defender.username + " resisted an attack from " + attacker.username + "!");
+        }
+        // They hit!
+        else
+        {
+            // Calculate the damage dealt.
+            int weapDam = random.Next(attacker.minWeaponDamage, attacker.maxWeaponDamage);
+            int damage = (int)Math.Floor((weapDam * attacker.physicalMultiplier));
+            if (random.Next(1, 100) < attacker.criticalStrikeChance)
+            {
+                if (random.Next(1, 100) < 20)
+                {
+                    // SUPER CRITICAL!
+                    // Double original damage and ignores defence.
+                    damage = damage * 2;
+                    Debug.Log(attacker.username + " smashed " + defender.username + " for a SUPER critical hit! They dealt " + damage.ToString() + " damage!");
+                    defender.currentHP -= damage;
+                    Debug.Log(defender.username + " is on " + defender.currentHP + "❤");
+                }
+                else
+                {
+                    // Critical Hit!
+                    damage = (int)Math.Floor(damage * 1.5);
+                    Debug.Log(attacker.username + " smacked " + defender.username + " for a critical hit! They dealt " + damage.ToString() + " damage!");
+                    defender.currentHP -= damage;
+                    Debug.Log(defender.username + " is on " + defender.currentHP + "❤");
+                }
+            }
+            else
+            {
+                // Just a normal hit.
+                Debug.Log(attacker.username + " hit " + defender.username + " for " + damage.ToString() + " damage!");
                 defender.currentHP -= damage;
                 Debug.Log(defender.username + " is on " + defender.currentHP + "❤");
             }
