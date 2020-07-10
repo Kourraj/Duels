@@ -17,8 +17,8 @@ public enum PlayerClass
 {
     Warrior,
     Assassin,
-    Mage,
-    Druid
+    Druid,
+    Mage
 }
 
 public class Player : MonoBehaviour
@@ -35,15 +35,15 @@ public class Player : MonoBehaviour
     [Space]
 
     [Header("Weapons")]
-    public AttackTypes attackType;
+    // Each hand.
+    public Weapon mainHand;
+    public Weapon offHand;
     // Min and Max for Weapon Damage
     public int minWeaponDamage;
     public int maxWeaponDamage;
     // Chance to hit the target
     [Range(0, 100)]
     public int hitChance;
-    // Are they duel wielding?
-    public bool isDuelWield;
 
     [Space]
 

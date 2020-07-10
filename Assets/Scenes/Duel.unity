@@ -369,6 +369,7 @@ MonoBehaviour:
   username: Ralen
   maxHP: 3000
   currentHP: 3000
+  playerClass: 0
   attackType: 0
   minWeaponDamage: 50
   maxWeaponDamage: 100
@@ -511,11 +512,12 @@ MonoBehaviour:
   username: QoO
   maxHP: 2000
   currentHP: 2000
+  playerClass: 1
   attackType: 0
   minWeaponDamage: 40
   maxWeaponDamage: 70
   hitChance: 90
-  isDuelWield: 0
+  isDuelWield: 1
   physicalMultiplier: 2.5
   magicalMultiplier: 1
   criticalStrikeChance: 30

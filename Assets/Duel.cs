@@ -72,11 +72,11 @@ public class Duel : MonoBehaviour
             if (DoPhysicalAttack(first, second))
                 break;
             // Secondary Physical
-            if (first.isDuelWield)
+            if (!(first.offHand.weaponType == WeaponType.Wand))
                 if (DoSecondaryPhysicalAttack(first, second))
                     break;
             // Secondary Magical
-            if (first.attackType == AttackTypes.Magical)
+            if (first.offHand.weaponType == WeaponType.Wand)
                 if (DoMagicalAttack(first, second))
                     break;
             
@@ -85,12 +85,12 @@ public class Duel : MonoBehaviour
             if (DoPhysicalAttack(second, first))
                 break;
             // Secondary Physical
-            if (second.isDuelWield)
+            if (!(second.offHand.weaponType == WeaponType.Wand))
                 if (DoSecondaryPhysicalAttack(second, first))
                     break;
             // Magical Attack
-            if ((second.attackType) == AttackTypes.Magical)
-                if (DoMagicalAttack(second, second))
+            if (second.offHand.weaponType == WeaponType.Wand)
+                if (DoMagicalAttack(second, first))
                     break;
 
             // Bleed damage.
