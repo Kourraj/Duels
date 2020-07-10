@@ -44,23 +44,23 @@ public class Player : MonoBehaviour
     // Multiplier for Magical Damage
     public float magicalMultiplier = 1;
     // Chance to hit a critical strike;
-    [Range(0, 100)]
+    [Range(0, 90)]
     public int criticalStrikeChance;
 
     [Space]
 
     [Header("Damage Reducers")]
     // % mitigation of physical damage.
-    [Range(0, 100)]
+    [Range(0, 90)]
 	public int defense;
     // Chance to avoid all physical damage (one hit)
-    [Range(0, 100)]
+    [Range(0, 90)]
     public int dodgeChance;
     // Chance to block all incoming physical damage
-    [Range(0, 100)]
+    [Range(0, 90)]
     public int blockChance;
     // Chance to avoid all magical damage (one hit)
-    [Range(0, 100)]
+    [Range(0, 90)]
     public int resistanceChance;
 
     [Space]
