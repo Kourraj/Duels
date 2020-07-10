@@ -10,12 +10,10 @@ public class Duel : MonoBehaviour
 
     System.Random random;
 
-    void Start()
-    {
-        haveDuel();
-    }
+    int duelDamageMult = 1;
+
     public int randomSeed = 5;
-    void haveDuel()
+    public void HaveDuel()
     {
         random = new System.Random(randomSeed);
         Player first;
@@ -48,6 +46,11 @@ public class Duel : MonoBehaviour
         int turnCount = 0;
         while (true)
         {
+            // Turn Timer. Avoids no damage bug.
+            turnCount ++;
+            if (turnCount >= 70)
+                break;
+
             // Actions
             if (DoAction(first, second))
                 break;
@@ -86,11 +89,6 @@ public class Duel : MonoBehaviour
             if ((second.attackType) == AttackTypes.Magical)
                 if (DoMagicalAttack(second, second))
                     break;
-
-            // Turn Timer. Avoids no damage bug.
-            turnCount ++;
-            if (turnCount >= 70)
-                break;
         }
 
         // Victory stuff
@@ -129,6 +127,7 @@ public class Duel : MonoBehaviour
             // Calculate the damage dealt.
             int weapDam = random.Next(attacker.minWeaponDamage, attacker.maxWeaponDamage);
             int damage = (int)Math.Floor((weapDam * attacker.physicalMultiplier) * ((float)(100 - defender.defense) / 100));
+            damage *= duelDamageMult;
             if (random.Next(1, 100) < attacker.criticalStrikeChance)
             {
                 if (random.Next(1, 100) < 20)
@@ -192,6 +191,7 @@ public class Duel : MonoBehaviour
             int weapDam = random.Next(attacker.minWeaponDamage, attacker.maxWeaponDamage);
             int damage = (int)Math.Floor((weapDam * attacker.physicalMultiplier) * ((float)(100 - defender.defense) / 100));
             damage = (int)Math.Floor(damage * 0.5);
+            damage *= duelDamageMult;
             if (random.Next(1, 100) < attacker.criticalStrikeChance)
             {
                 if (random.Next(1, 100) < 20)
@@ -246,6 +246,7 @@ public class Duel : MonoBehaviour
             // Calculate the damage dealt.
             int weapDam = random.Next(attacker.minWeaponDamage, attacker.maxWeaponDamage);
             int damage = (int)Math.Floor((weapDam * attacker.physicalMultiplier));
+            damage *= duelDamageMult;
             if (random.Next(1, 100) < attacker.criticalStrikeChance)
             {
                 if (random.Next(1, 100) < 20)
