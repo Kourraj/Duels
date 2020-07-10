@@ -46,9 +46,10 @@ public class Duel : MonoBehaviour
         int turnCount = 0;
         while (true)
         {
-            // Turn Timer. Avoids no damage bug.
+            // Turn Count.
             turnCount ++;
-            if (turnCount >= 70)
+            // Caps turn count, if no damage happens, the duel won't go on forever.
+            if (turnCount >= 100)
                 break;
 
             // Actions
@@ -89,6 +90,25 @@ public class Duel : MonoBehaviour
             if ((second.attackType) == AttackTypes.Magical)
                 if (DoMagicalAttack(second, second))
                     break;
+
+            // Bleed damage.
+            if (turnCount > 15)
+            {
+                if (turnCount % 2 == 1)
+                {
+                    int turnDmg = 50 + ((turnCount - 16) * 10);
+                    int bleedDmg = random.Next(turnDmg - (turnDmg / 10), turnDmg + (turnDmg / 10));
+                    Debug.Log(second.username + " bleeds for " + bleedDmg + " damage.");
+                    Debug.Log(second.username + " is on " + second.currentHP + "❤");
+                }
+                else if (turnCount % 2 == 0)
+                {
+                    int turnDmg = 50 + ((turnCount - 16) * 10);
+                    int bleedDmg = random.Next(turnDmg - (turnDmg / 10), turnDmg + (turnDmg / 10));
+                    Debug.Log(first.username + " bleeds for " + bleedDmg + " damage.");
+                    Debug.Log(first.username + " is on " + first.currentHP + "❤");
+                }
+            }
         }
 
         // Victory stuff
