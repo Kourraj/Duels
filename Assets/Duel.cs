@@ -51,6 +51,8 @@ public class Duel : MonoBehaviour
             // Caps turn count, if no damage happens, the duel won't go on forever.
             if (turnCount >= 100)
                 break;
+            // Display the turn
+            Debug.Log("Turn " + turnCount);
 
             // Actions
             if (DoAction(first, second))
