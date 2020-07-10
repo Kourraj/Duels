@@ -7,11 +7,19 @@ Key:
 0 = Physical
 1 = Magical
 */
-public enum AttackTypes : int
+public enum AttackTypes
 {
     Physical,
     Magical
 };
+
+public enum PlayerClass
+{
+    Warrior,
+    Assassin,
+    Mage,
+    Druid
+}
 
 public class Player : MonoBehaviour
 {
@@ -22,6 +30,7 @@ public class Player : MonoBehaviour
     // Maximum and current
     public int maxHP;
     public int currentHP;
+    public PlayerClass playerClass;
 
     [Space]
 
