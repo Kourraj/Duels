@@ -267,7 +267,7 @@ public class Duel : MonoBehaviour
         {
             // Calculate the damage dealt.
             int weapDam = random.Next(attacker.minWeaponDamage, attacker.maxWeaponDamage);
-            int damage = (int)Math.Floor((weapDam * attacker.physicalMultiplier));
+            int damage = (int)Math.Floor((weapDam * attacker.magicalMultiplier));
             damage *= duelDamageMult;
             if (random.Next(1, 100) < attacker.criticalStrikeChance)
             {
