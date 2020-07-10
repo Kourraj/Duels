@@ -240,10 +240,6 @@ public class Duel : MonoBehaviour
         {
             Debug.Log(attacker.username + " took a swing at " + defender.username + " and missed!");
         }
-        else if (random.Next(1, 100) <= defender.resistanceChance)
-        {
-            Debug.Log(defender.username + " resisted an attack from " + attacker.username + "!");
-        }
         // They hit!
         else
         {
@@ -272,10 +268,18 @@ public class Duel : MonoBehaviour
             }
             else
             {
+                // Check if it was resisted
+                if (random.Next(1, 100) <= defender.resistanceChance)
+                {
+                    Debug.Log(defender.username + " resisted an attack from " + attacker.username + "!");
+                }
                 // Just a normal hit.
-                Debug.Log(attacker.username + " magicked " + defender.username + " for " + damage.ToString() + " damage!");
-                defender.currentHP -= damage;
-                Debug.Log(defender.username + " is on " + defender.currentHP + "❤");
+                else
+                {
+                    Debug.Log(attacker.username + " magicked " + defender.username + " for " + damage.ToString() + " damage!");
+                    defender.currentHP -= damage;
+                    Debug.Log(defender.username + " is on " + defender.currentHP + "❤");
+                }
             }
 
             // Did they die?
