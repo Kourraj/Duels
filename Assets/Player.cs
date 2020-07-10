@@ -2,6 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+Key:
+0 = Physical
+1 = Magical
+*/
+public enum AttackTypes : int
+{
+    Physical,
+    Magical
+};
+
 public class Player : MonoBehaviour
 {
     [Header("Base")]
@@ -15,6 +26,7 @@ public class Player : MonoBehaviour
     [Space]
 
     [Header("Weapons")]
+    public AttackTypes attackType;
     // Min and Max for Weapon Damage
     public int minWeaponDamage;
     public int maxWeaponDamage;
@@ -23,8 +35,6 @@ public class Player : MonoBehaviour
     public int hitChance;
     // Are they duel wielding?
     public bool isDuelWield;
-    // TEMP - Have they got a wand?
-    public bool isUsingWand;
 
     [Space]
 

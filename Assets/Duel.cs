@@ -62,33 +62,29 @@ public class Duel : MonoBehaviour
 
             // Attacks
             // First's Attacks
-            // Physical Attacks
-            if (!first.isUsingWand)
-            {
-                if (DoPhysicalAttack(first, second))
+            // Primary
+            if (DoPhysicalAttack(first, second))
+                break;
+            // Secondary Physical
+            if (first.isDuelWield)
+                if (DoSecondaryPhysicalAttack(first, second))
                     break;
-                if (first.isDuelWield)
-                    if (DoSecondaryPhysicalAttack(first, second))
-                        break;
-            }
-            // Magical Attacks
-            else if (first.isUsingWand)
+            // Secondary Magical
+            if (first.attackType == AttackTypes.Magical)
                 if (DoMagicalAttack(first, second))
                     break;
             
             // Second's Attacks
-            // Physical Attacks
-            if (!second.isUsingWand)
-            {
-                if (DoPhysicalAttack(second, first))
+            // Primary
+            if (DoPhysicalAttack(second, first))
+                break;
+            // Secondary Physical
+            if (second.isDuelWield)
+                if (DoSecondaryPhysicalAttack(second, first))
                     break;
-                if (first.isDuelWield)
-                    if (DoSecondaryPhysicalAttack(second, first))
-                        break;
-            }
-            // Magical Attacks
-            else if (second.isUsingWand)
-                if (DoMagicalAttack(second, first))
+            // Magical Attack
+            if ((second.attackType) == AttackTypes.Magical)
+                if (DoMagicalAttack(second, second))
                     break;
 
             // Turn Timer. Avoids no damage bug.
@@ -119,13 +115,13 @@ public class Duel : MonoBehaviour
         {
             Debug.Log(attacker.username + " took a swing at " + defender.username + " and missed!");
         }
-        else if (random.Next(1, 100) <= defender.dodgeChance)
-        {
-            Debug.Log(defender.username + " dodged an attack from " + attacker.username + "!");
-        }
         else if (random.Next(1, 100) <= defender.blockChance)
         {
             Debug.Log(defender.username + " blocked a hit from " + attacker.username + "!");
+        }
+        else if (random.Next(1, 100) <= defender.dodgeChance)
+        {
+            Debug.Log(defender.username + " dodged an attack from " + attacker.username + "!");
         }
         // They hit!
         else
@@ -181,13 +177,13 @@ public class Duel : MonoBehaviour
         {
             Debug.Log(attacker.username + " took a swing at " + defender.username + " and missed!");
         }
-        else if (random.Next(1, 100) <= defender.dodgeChance)
-        {
-            Debug.Log(defender.username + " dodged an attack from " + attacker.username + "!");
-        }
         else if (random.Next(1, 100) <= defender.blockChance)
         {
             Debug.Log(defender.username + " blocked a hit from " + attacker.username + "!");
+        }
+        else if (random.Next(1, 100) <= defender.dodgeChance)
+        {
+            Debug.Log(defender.username + " dodged an attack from " + attacker.username + "!");
         }
         // They hit!
         else
@@ -261,7 +257,7 @@ public class Duel : MonoBehaviour
                     // SUPER CRITICAL!
                     // Double original damage and ignores defence.
                     damage = damage * 2;
-                    Debug.Log(attacker.username + " smashed " + defender.username + " for a SUPER critical hit! They dealt " + damage.ToString() + " damage!");
+                    Debug.Log(attacker.username + " magicked " + defender.username + " for a SUPER critical hit! They dealt " + damage.ToString() + " damage!");
                     defender.currentHP -= damage;
                     Debug.Log(defender.username + " is on " + defender.currentHP + "❤");
                 }
@@ -269,7 +265,7 @@ public class Duel : MonoBehaviour
                 {
                     // Critical Hit!
                     damage = (int)Math.Floor(damage * 1.5);
-                    Debug.Log(attacker.username + " smacked " + defender.username + " for a critical hit! They dealt " + damage.ToString() + " damage!");
+                    Debug.Log(attacker.username + " magicked " + defender.username + " for a critical hit! They dealt " + damage.ToString() + " damage!");
                     defender.currentHP -= damage;
                     Debug.Log(defender.username + " is on " + defender.currentHP + "❤");
                 }
@@ -277,7 +273,7 @@ public class Duel : MonoBehaviour
             else
             {
                 // Just a normal hit.
-                Debug.Log(attacker.username + " hit " + defender.username + " for " + damage.ToString() + " damage!");
+                Debug.Log(attacker.username + " magicked " + defender.username + " for " + damage.ToString() + " damage!");
                 defender.currentHP -= damage;
                 Debug.Log(defender.username + " is on " + defender.currentHP + "❤");
             }
