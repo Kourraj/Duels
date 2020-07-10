@@ -2,11 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+Key:
+0 = Physical
+1 = Magical
+*/
+public enum AttackTypes : int
+{
+    Physical,
+    Magical
+};
+
 public class Player : MonoBehaviour
 {
     [Header("Base")]
     public string username;
-    
+
     // Health Points of the character
     // Maximum and current
     public int maxHP;
@@ -15,6 +26,7 @@ public class Player : MonoBehaviour
     [Space]
 
     [Header("Weapons")]
+    public AttackTypes attackType;
     // Min and Max for Weapon Damage
     public int minWeaponDamage;
     public int maxWeaponDamage;
@@ -32,23 +44,23 @@ public class Player : MonoBehaviour
     // Multiplier for Magical Damage
     public float magicalMultiplier = 1;
     // Chance to hit a critical strike;
-    [Range(0, 100)]
+    [Range(0, 90)]
     public int criticalStrikeChance;
 
     [Space]
 
     [Header("Damage Reducers")]
     // % mitigation of physical damage.
-    [Range(0, 100)]
+    [Range(0, 90)]
 	public int defense;
     // Chance to avoid all physical damage (one hit)
-    [Range(0, 100)]
+    [Range(0, 90)]
     public int dodgeChance;
     // Chance to block all incoming physical damage
-    [Range(0, 100)]
+    [Range(0, 90)]
     public int blockChance;
     // Chance to avoid all magical damage (one hit)
-    [Range(0, 100)]
+    [Range(0, 90)]
     public int resistanceChance;
 
     [Space]
