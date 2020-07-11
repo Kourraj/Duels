@@ -2,17 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
-Key:
-0 = Physical
-1 = Magical
-*/
-public enum AttackTypes
-{
-    Physical,
-    Magical
-};
-
 public enum PlayerClass
 {
     Warrior,
