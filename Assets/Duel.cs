@@ -147,7 +147,7 @@ public class Duel : MonoBehaviour
         else
         {
             // Calculate the damage dealt.
-            int weapDam = random.Next(attacker.minWeaponDamage, attacker.maxWeaponDamage);
+            int weapDam = random.Next(attacker.mainHand.minDamage, attacker.mainHand.maxDamage);
             int damage = (int)Math.Floor((weapDam * attacker.physicalMultiplier) * ((float)(100 - defender.defense) / 100));
             damage *= duelDamageMult;
             if (random.Next(1, 100) < attacker.criticalStrikeChance)
@@ -210,7 +210,7 @@ public class Duel : MonoBehaviour
         else
         {
             // Calculate the damage dealt.
-            int weapDam = random.Next(attacker.minWeaponDamage, attacker.maxWeaponDamage);
+            int weapDam = random.Next(attacker.offHand.minDamage, attacker.offHand.maxDamage);
             int damage = (int)Math.Floor((weapDam * attacker.physicalMultiplier) * ((float)(100 - defender.defense) / 100));
             damage = (int)Math.Floor(damage * 0.5);
             damage *= duelDamageMult;
@@ -266,7 +266,7 @@ public class Duel : MonoBehaviour
         else
         {
             // Calculate the damage dealt.
-            int weapDam = random.Next(attacker.minWeaponDamage, attacker.maxWeaponDamage);
+            int weapDam = random.Next(attacker.offHand.minDamage, attacker.offHand.maxDamage);
             int damage = (int)Math.Floor((weapDam * attacker.magicalMultiplier));
             damage *= duelDamageMult;
             if (random.Next(1, 100) < attacker.criticalStrikeChance)
