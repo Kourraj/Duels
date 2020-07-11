@@ -116,7 +116,7 @@ public class Player : MonoBehaviour
 
         // Calculate final stats
         // Base Stats
-        maxHP = playerLevel*50+strength+4*stamina;
+        maxHP = (int)((playerLevel * 50) + strength + (stamina * 4));
 
         // Non-Chance Stats
         initiative = (int)((perception + speed * 2) / 20);
