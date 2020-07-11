@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1441e76505df4714b75a332b690c43d, type: 3}
-  m_Name: Axe of the Ogre
+  m_Name: Axe of Halfrida2
   m_EditorClassIdentifier: 
-  itemID: 2
-  weaponName: Axe of the Ogre
+  itemID: AoH2
+  weaponName: Axe of Halfrida
   weaponDescription: 
   weaponType: 3
   minDamage: 60
   maxDamage: 70
-  strengthBonus: 0
+  strengthBonus: 5
   speedBonus: 0
-  perceptionBonus: 0
+  perceptionBonus: 2
   intelligenceBonus: 0
   staminaBonus: 0
-  resistBonus: 0
+  resistBonus: 7
   armourBonus: 0

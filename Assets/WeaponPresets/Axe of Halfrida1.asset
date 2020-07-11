@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1441e76505df4714b75a332b690c43d, type: 3}
-  m_Name: Axe of Halfrida
+  m_Name: Axe of Halfrida1
   m_EditorClassIdentifier: 
-  itemID: 1
+  itemID: AoH1
   weaponName: Axe of Halfrida
   weaponDescription: 
   weaponType: 3
   minDamage: 40
   maxDamage: 50
-  strengthBonus: 0
-  speedBonus: 0
+  strengthBonus: 2
+  speedBonus: 1
   perceptionBonus: 0
   intelligenceBonus: 0
   staminaBonus: 0
   resistBonus: 0
-  armourBonus: 0
+  armourBonus: 1
