@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1441e76505df4714b75a332b690c43d, type: 3}
-  m_Name: Wand of Test
+  m_Name: Wand of Vascia
   m_EditorClassIdentifier: 
-  itemID: 
-  weaponName: 
+  itemID: 14
+  weaponName: Wand of Vascia
   weaponDescription: 
   weaponType: 6
-  minDamage: 10
-  maxDamage: 20
+  minDamage: 40
+  maxDamage: 50
   strengthBonus: 0
   speedBonus: 0
   perceptionBonus: 0
