@@ -30,7 +30,11 @@ public class Player : MonoBehaviour
     // Maximum and current
     public int maxHP;
     public int currentHP;
+    // The class the player has selected.
     public PlayerClass playerClass;
+    // The level the player has reached.
+    [Range(1, 20)]
+    public int playerLevel;
 
 
     [Space]
@@ -52,10 +56,17 @@ public class Player : MonoBehaviour
     public int speed, perception, intelligence, stamina, resist, armour;
 
     #region NonChanceEndStats
+
     [Space]
 
-
     [Header("End Stats - Not Chances")]
+
+    // In a duel, highest initiative goes first.
+    public int initiative;
+
+    // % mitigation of physical damage.
+    [Range(0, 90)]
+	public int defense;
 
     // Multiplier for Physical Damage
     public float physicalMultiplier = 1;
@@ -63,8 +74,6 @@ public class Player : MonoBehaviour
     // Multiplier for Magical Damage
     public float magicalMultiplier = 1;
 
-    // In a duel, highest initiative goes first.
-    public int initiative;
     #endregion NonChanceEndStats
 
     #region ChanceEndStats
@@ -79,10 +88,6 @@ public class Player : MonoBehaviour
     [Range(0, 90)]
     public int criticalStrikeChance;
 
-    // % mitigation of physical damage.
-    [Range(0, 90)]
-	public int defense;
-
     // Chance to avoid all physical damage (one hit)
     [Range(0, 90)]
     public int dodgeChance;
@@ -95,10 +100,37 @@ public class Player : MonoBehaviour
     [Range(0, 90)]
     public int resistanceChance;
     #endregion ChanceEndStats
-    
+
     void Awake ()
     {
-        defense = (int)(0.184 * armour);
+        // TODO - Add weapon bonuses
+
+        // Calculate final stats
+        // Base Stats
+        maxHP = playerLevel*50+strength+4*stamina;
+
+        // Non-Chance Stats
+        initiative = (int)((perception + speed * 2) / 20);
+
+        defense = (int)(0.154 * armour);
+
         physicalMultiplier = (int)((strength * 0.5) + (speed * 0.05) + (perception * 0.1));
+
+        magicalMultiplier = (int)((intelligence * 0.5) + (speed * 0.05) + (perception * 0.1));
+
+        // Chance Stats
+        hitChance = (int)(70 + (((perception * 0.5) + speed) / 20));
+
+        criticalStrikeChance = (int)(((perception * 1.5) + (speed * 0.5)) / 20);
+
+        dodgeChance = (int)((intelligence + (perception * 0.5) + speed) / 20);
+
+        //blockChance = shield;
+
+        resistanceChance = (int)(0.234 * resist);
+
+        // Final Stat prep
+        currentHP = maxHP;
+
     }
 }
