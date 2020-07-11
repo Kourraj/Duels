@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1441e76505df4714b75a332b690c43d, type: 3}
   m_Name: Dagger of the Pirate
   m_EditorClassIdentifier: 
-  itemID: 
-  weaponName: 
+  itemID: 3
+  weaponName: Dagger of the Pirate
   weaponDescription: 
   weaponType: 0
-  minDamage: 0
-  maxDamage: 0
+  minDamage: 60
+  maxDamage: 70
   strengthBonus: 0
   speedBonus: 0
   perceptionBonus: 0

@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1441e76505df4714b75a332b690c43d, type: 3}
   m_Name: Dagger of the Unseen
   m_EditorClassIdentifier: 
-  itemID: 
-  weaponName: 
+  itemID: 4
+  weaponName: Dagger of the Unseen
   weaponDescription: 
   weaponType: 0
-  minDamage: 0
-  maxDamage: 0
+  minDamage: 40
+  maxDamage: 50
   strengthBonus: 0
   speedBonus: 0
   perceptionBonus: 0
