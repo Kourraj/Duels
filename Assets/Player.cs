@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     public PlayerClass playerClass;
     // The level the player has reached.
     [Range(1, 20)]
-    public int playerLevel;
+    public int playerLevel = 1;
 
 
     [Space]
