@@ -103,7 +103,27 @@ public class Player : MonoBehaviour
 
     void Awake ()
     {
-        // TODO - Add weapon bonuses
+        // Add weapon bonuses
+        // mainHand
+        strength += mainHand.strengthBonus;
+        speed += mainHand.strengthBonus;
+        perception += mainHand.perceptionBonus;
+        intelligence += mainHand.intelligenceBonus;
+        stamina += mainHand.staminaBonus;
+        resist += mainHand.resistBonus;
+        armour += mainHand.armourBonus;
+
+        // offHand
+        if (offHand != null)
+        {
+            strength += offHand.strengthBonus;
+            speed += offHand.speedBonus;
+            perception += offHand.perceptionBonus;
+            intelligence += offHand.intelligenceBonus;
+            stamina += offHand.staminaBonus;
+            resist += offHand.resistBonus;
+            armour += offHand.armourBonus;
+        }
 
         // Calculate final stats
         // Base Stats
