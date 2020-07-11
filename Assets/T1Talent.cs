@@ -2,26 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
-Stat Key:
-0: Speed
-1: Perception
-2: Stamina
-3: Strength
-4: Armour
-5: Resist
-6: Intelligence
-*/
-
 public enum StatType
 {
-    Strength,
-    Speed,
-    Perception,
-    Intelligence,
-    Stamina,
-    Resist,
-    Armour
+    CriticalChance,
+    Damage,
+    HitChance
 }
 
 [CreateAssetMenu (fileName="Tier 1 Talent", menuName="Character Attributes/Tier 1 Talent")]
@@ -32,9 +17,6 @@ public class T1Talent : ScriptableObject
     public string talentName;
     [TextArea]
     public string talentDescription;
-
-
-    public PlayerClass skillClass;
 
     [Space]
 
@@ -47,22 +29,22 @@ public class T1Talent : ScriptableObject
     [Space]
 
     [Header("Condition(s)")]
+    public ClassType classType;
     public WeaponType weaponType;
 
-    public bool ClassCheck(Player player)
+    public bool ClassCheck(ClassType playerClassType)
     {
-        if (player.playerClass != skillClass)
-            return false;
-
-        return true;
-    }
-
-    public bool GetsBenefit(WeaponType theWeaponsType)
-    {
-        if (theWeaponsType == weaponType)
+        if (playerClassType == classType)
             return true;
-        else 
-            return false;
 
+        return false;
     }
+    
+    public bool GetsBenefit(WeaponType playerWeaponType)
+    {
+        if (weaponType == playerWeaponType)
+            return true;
+        return false;
+    }
+    
 }

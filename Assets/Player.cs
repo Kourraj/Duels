@@ -10,6 +10,12 @@ public enum PlayerClass
     Mage
 }
 
+public enum ClassType
+{
+    Physical,
+    Magical
+}
+
 public class Player : MonoBehaviour
 {
     [Header("Base")]
@@ -44,12 +50,18 @@ public class Player : MonoBehaviour
 
     public int speed, perception, intelligence, stamina, resist, armour;
 
+    [Space]
+
+    [Header("Talents")]
+    public T1Talent Tier1Talent;
+
     #region NonChanceEndStats
 
     [Space]
 
     [Header("End Stats - Not Chances")]
 
+    public ClassType classType;
     // In a duel, highest initiative goes first.
     public int initiative;
 
@@ -92,6 +104,14 @@ public class Player : MonoBehaviour
 
     void Awake ()
     {
+        // Set classType
+        if (playerClass == PlayerClass.Assassin || playerClass == PlayerClass.Warrior)
+            classType = ClassType.Physical;
+        else if (playerClass == PlayerClass.Druid || playerClass == PlayerClass.Mage)
+            classType = ClassType.Magical;
+        else
+            Debug.LogError("Invalid Class Type.");
+
         // Add weapon bonuses
         // mainHand
         strength += mainHand.strengthBonus;
