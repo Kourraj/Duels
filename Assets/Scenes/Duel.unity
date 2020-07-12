@@ -369,19 +369,30 @@ MonoBehaviour:
   username: Ralen
   maxHP: 3000
   currentHP: 3000
-  attackType: 0
-  minWeaponDamage: 50
-  maxWeaponDamage: 100
-  hitChance: 80
-  isDuelWield: 0
+  playerClass: 0
+  playerLevel: 1
+  mainHand: {fileID: 11400000, guid: 45c39618a120246188e0b02165fa2432, type: 2}
+  offHand: {fileID: 0}
+  strength: 220
+  speed: 220
+  perception: 220
+  intelligence: 220
+  stamina: 220
+  resist: 220
+  armour: 220
+  tier1Talent: {fileID: 0}
+  tier2Talent: 0
+  tier3Talent: 0
+  classType: 0
+  initiative: 100
+  defense: 50
   physicalMultiplier: 2
   magicalMultiplier: 1
+  hitChance: 80
   criticalStrikeChance: 10
-  defense: 50
   dodgeChance: 20
   blockChance: 0
   resistanceChance: 40
-  initiative: 100
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -511,19 +522,30 @@ MonoBehaviour:
   username: QoO
   maxHP: 2000
   currentHP: 2000
-  attackType: 0
-  minWeaponDamage: 40
-  maxWeaponDamage: 70
-  hitChance: 90
-  isDuelWield: 0
+  playerClass: 1
+  playerLevel: 1
+  mainHand: {fileID: 11400000, guid: c5cdc47772ada5a4bab47eb5baee9599, type: 2}
+  offHand: {fileID: 0}
+  strength: 220
+  speed: 220
+  perception: 220
+  intelligence: 220
+  stamina: 220
+  resist: 220
+  armour: 220
+  tier1Talent: {fileID: 0}
+  tier2Talent: 0
+  tier3Talent: 0
+  classType: 0
+  initiative: 150
+  defense: 30
   physicalMultiplier: 2.5
   magicalMultiplier: 1
+  hitChance: 90
   criticalStrikeChance: 30
-  defense: 30
   dodgeChance: 30
   blockChance: 0
   resistanceChance: 40
-  initiative: 150
 --- !u!1 &1410455332
 GameObject:
   m_ObjectHideFlags: 0

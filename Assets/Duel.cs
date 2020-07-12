@@ -6,8 +6,6 @@ public class Duel : MonoBehaviour
     public Player attacker;
     public Player defender;
 
-    private Player victor;
-
     System.Random random;
 
     int duelDamageMult = 1;
@@ -44,6 +42,7 @@ public class Duel : MonoBehaviour
 
         // Stops ∞ turns as they don't deal damage.
         int turnCount = 0;
+        Player victor = null;
         while (true)
         {
             // Turn Count.
@@ -51,6 +50,8 @@ public class Duel : MonoBehaviour
             // Caps turn count, if no damage happens, the duel won't go on forever.
             if (turnCount >= 100)
                 break;
+            // Display the turn
+            Debug.Log("Turn " + turnCount);
 
             // Actions
             if (DoAction(first, second))
@@ -64,32 +65,10 @@ public class Duel : MonoBehaviour
             if (DoSkill(second, first))
                 break;
 
-            // Attacks
-            // First's Attacks
-            // Primary
-            if (DoPhysicalAttack(first, second))
+            // Do Attacks
+            victor = DoAttacks(first, second);
+            if (victor != null)
                 break;
-            // Secondary Physical
-            if (first.isDuelWield)
-                if (DoSecondaryPhysicalAttack(first, second))
-                    break;
-            // Secondary Magical
-            if (first.attackType == AttackTypes.Magical)
-                if (DoMagicalAttack(first, second))
-                    break;
-            
-            // Second's Attacks
-            // Primary
-            if (DoPhysicalAttack(second, first))
-                break;
-            // Secondary Physical
-            if (second.isDuelWield)
-                if (DoSecondaryPhysicalAttack(second, first))
-                    break;
-            // Magical Attack
-            if ((second.attackType) == AttackTypes.Magical)
-                if (DoMagicalAttack(second, second))
-                    break;
 
             // Bleed damage.
             if (turnCount > 15)
@@ -116,15 +95,38 @@ public class Duel : MonoBehaviour
         Debug.Log(turnCount);
     }
 
-    bool DoAction(Player first, Player second)
+    int CalculateAttacks(Player attacker)
     {
-        return false;
+        // Calculate moves.
+        int attackCount = 1;
+        if (attacker.offHand != null)
+            attackCount += 1;
+        // TODO - Insert more check for extra attacks
+
+        return attackCount;
     }
-    bool DoSkill(Player first, Player second)
+
+    Player DoAction(Player first, Player second)
     {
-        return false;
+        return null;
     }
-    bool DoPhysicalAttack(Player attacker, Player defender)
+    Player DoSkill(Player first, Player second)
+    {
+        return null;
+    }
+
+    /* IGNORE. Code to trial Talent implementation
+    Player DoNewMHAttack(Player attacker, Player defender)
+    {
+        // Check if they hit the person.
+        int baseHitChance = attacker.hitChance;
+        string[] hitChanceTalents
+        if (attacker.tier1Talent.id  "PT1SD")
+        return null;
+    }
+    */
+
+    Player DoMainHandAttack(Player attacker, Player defender)
     {
         // attacker Attacks
 
@@ -145,7 +147,7 @@ public class Duel : MonoBehaviour
         else
         {
             // Calculate the damage dealt.
-            int weapDam = random.Next(attacker.minWeaponDamage, attacker.maxWeaponDamage);
+            int weapDam = random.Next(attacker.mainHand.minDamage, attacker.mainHand.maxDamage);
             int damage = (int)Math.Floor((weapDam * attacker.physicalMultiplier) * ((float)(100 - defender.defense) / 100));
             damage *= duelDamageMult;
             if (random.Next(1, 100) < attacker.criticalStrikeChance)
@@ -178,21 +180,19 @@ public class Duel : MonoBehaviour
 
             // Did they die?
             if (defender.currentHP <= 0)
-            {
-                victor = attacker;
-                return true;
-            }
+                return attacker;
         }
 
-        return false;
+        return null;
     }
 
-    public bool DoSecondaryPhysicalAttack (Player attacker, Player defender)
+    Player DoOffHandAttack (Player attacker, Player defender)
     {
         // attacker Attacks
 
         // Check they hit the person.
-        if (random.Next(1, 100) > attacker.hitChance)
+        
+        if (random.Next(1, 100) > (attacker.hitChance * .5))
         {
             Debug.Log(attacker.username + " took a swing at " + defender.username + " and missed!");
         }
@@ -208,7 +208,7 @@ public class Duel : MonoBehaviour
         else
         {
             // Calculate the damage dealt.
-            int weapDam = random.Next(attacker.minWeaponDamage, attacker.maxWeaponDamage);
+            int weapDam = random.Next(attacker.offHand.minDamage, attacker.offHand.maxDamage);
             int damage = (int)Math.Floor((weapDam * attacker.physicalMultiplier) * ((float)(100 - defender.defense) / 100));
             damage = (int)Math.Floor(damage * 0.5);
             damage *= duelDamageMult;
@@ -242,16 +242,13 @@ public class Duel : MonoBehaviour
 
             // Did they die?
             if (defender.currentHP <= 0)
-            {
-                victor = attacker;
-                return true;
-            }
+                return attacker;
         }
 
-        return false;
+        return null;
     }
 
-    bool DoMagicalAttack(Player attacker, Player defender)
+    Player DoOffHandWandAttack(Player attacker, Player defender)
     {
         // attacker Attacks
 
@@ -264,8 +261,8 @@ public class Duel : MonoBehaviour
         else
         {
             // Calculate the damage dealt.
-            int weapDam = random.Next(attacker.minWeaponDamage, attacker.maxWeaponDamage);
-            int damage = (int)Math.Floor((weapDam * attacker.physicalMultiplier));
+            int weapDam = random.Next(attacker.offHand.minDamage, attacker.offHand.maxDamage);
+            int damage = (int)Math.Floor((weapDam * attacker.magicalMultiplier));
             damage *= duelDamageMult;
             if (random.Next(1, 100) < attacker.criticalStrikeChance)
             {
@@ -305,12 +302,58 @@ public class Duel : MonoBehaviour
 
             // Did they die?
             if (defender.currentHP <= 0)
-            {
-                victor = attacker;
-                return true;
-            }
+                return attacker;
         }
 
-        return false;
+        return null;
+    }
+
+    Player DoAttacks(Player first, Player second)
+    {
+        // Calculate attacks
+        int firstAttackCount = CalculateAttacks(first);
+        int secondAttackCount = CalculateAttacks(second);
+        int firstAttacksMade = 0;
+        int secondAttacksMade = 0;
+        // Attacks
+
+        while (firstAttackCount != firstAttacksMade && secondAttackCount != secondAttacksMade)
+        {
+            // First's turn to attack.
+            if (firstAttacksMade == secondAttacksMade || secondAttackCount == secondAttacksMade)
+            {
+                if ((firstAttacksMade % 2) == 0 || first.offHand == null)
+                    if (DoMainHandAttack(first, second))
+                        return first;
+                else
+                    if (!(first.offHand.weaponType == WeaponType.Wand))
+                        if (DoOffHandAttack(first, second))
+                            return first;
+                    // Wand offhand
+                    if (first.offHand.weaponType == WeaponType.Wand)
+                        if (DoOffHandWandAttack(first, second))
+                            return first;
+
+                firstAttacksMade += 1;
+            }
+            else
+            {
+                if ((secondAttacksMade % 2) == 0 || second.offHand == null)
+                    if (DoMainHandAttack(second, first))
+                        return second;
+                else
+                    if (!(second.offHand.weaponType == WeaponType.Wand))
+                        if (DoOffHandAttack(second, first))
+                            return second;
+                    // Wand offhand
+                    if (second.offHand.weaponType == WeaponType.Wand)
+                        if (DoOffHandWandAttack(second, first))
+                            return second;
+
+                secondAttacksMade += 1;
+            }
+
+        }
+        return null;
     }
 }
