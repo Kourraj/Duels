@@ -143,9 +143,9 @@ public class Player : MonoBehaviour
 
         defense = (int)(0.154 * armour);
 
-        physicalMultiplier = (int)((strength * 0.5) + (speed * 0.05) + (perception * 0.1));
+        physicalMultiplier = (float)((strength * 0.5) + (speed * 0.05) + (perception * 0.1) / 100);
 
-        magicalMultiplier = (int)((intelligence * 0.5) + (speed * 0.05) + (perception * 0.1));
+        magicalMultiplier = (float)((intelligence * 0.5) + (speed * 0.05) + (perception * 0.1) / 100);
 
         // Chance Stats
         hitChance = (int)(70 + (((perception * 0.5) + speed) / 20));
