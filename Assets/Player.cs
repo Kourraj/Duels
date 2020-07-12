@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
     // The class the player has selected.
     public PlayerClass playerClass;
     // The level the player has reached.
-    [Range(1, 20)]
+    [Range(1, 40)]
     public int playerLevel = 1;
 
 

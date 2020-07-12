@@ -370,17 +370,27 @@ MonoBehaviour:
   maxHP: 3000
   currentHP: 3000
   playerClass: 0
+  playerLevel: 1
   mainHand: {fileID: 11400000, guid: 45c39618a120246188e0b02165fa2432, type: 2}
   offHand: {fileID: 0}
-  hitChance: 80
+  strength: 0
+  speed: 0
+  perception: 0
+  intelligence: 0
+  stamina: 0
+  resist: 0
+  armour: 0
+  Tier1Talent: {fileID: 0}
+  classType: 0
+  initiative: 100
+  defense: 50
   physicalMultiplier: 2
   magicalMultiplier: 1
+  hitChance: 80
   criticalStrikeChance: 10
-  defense: 50
   dodgeChance: 20
   blockChance: 0
   resistanceChance: 40
-  initiative: 100
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -511,17 +521,27 @@ MonoBehaviour:
   maxHP: 2000
   currentHP: 2000
   playerClass: 1
-  mainHand: {fileID: 0}
+  playerLevel: 0
+  mainHand: {fileID: 11400000, guid: c5cdc47772ada5a4bab47eb5baee9599, type: 2}
   offHand: {fileID: 0}
-  hitChance: 90
+  strength: 0
+  speed: 0
+  perception: 0
+  intelligence: 0
+  stamina: 0
+  resist: 0
+  armour: 0
+  Tier1Talent: {fileID: 0}
+  classType: 0
+  initiative: 150
+  defense: 30
   physicalMultiplier: 2.5
   magicalMultiplier: 1
+  hitChance: 90
   criticalStrikeChance: 30
-  defense: 30
   dodgeChance: 30
   blockChance: 0
   resistanceChance: 40
-  initiative: 150
 --- !u!1 &1410455332
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,9 +15,9 @@ MonoBehaviour:
   talentID: 
   talentName: 
   talentDescription: 
-  primaryStat: 0
-  primaryStatType: 0
-  secodaryStat: 0
-  scondaryStatType: 0
-  classType: 0
-  weaponType: 0
+  primaryStat: 10
+  primaryStatType: 1
+  secodaryStat: 10
+  scondaryStatType: 2
+  classType: 1
+  weaponType: 4

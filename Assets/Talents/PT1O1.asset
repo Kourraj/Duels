@@ -10,17 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2a1216ed070f4bac898993d3cbd64ef, type: 3}
-  m_Name: talent
+  m_Name: PT1O1
   m_EditorClassIdentifier: 
-  talentID: 
-  talentName: 
-  talentDescription: 
-  skillClass: 0
-  skillTier: 0
-  strengthBonus: 0
-  speedBonus: 0
-  perceptionBonus: 0
-  intelligenceBonus: 0
-  staminaBonus: 0
-  resistBonus: 0
-  armourBonus: 0
+  talentID: PT1O1
+  talentName: Option 1
+  talentDescription: 'Warrior/Assasin.
+
+    T1
+
+    O1'
+  primaryStat: 10
+  primaryStatType: 0
+  secodaryStat: 0
+  scondaryStatType: 0
+  classType: 0
+  weaponType: 0
