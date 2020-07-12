@@ -15,9 +15,9 @@ Stat Key:
 public enum WeaponType
 {
     Dagger = 0,
-    Swords = 1,
-    Hammers = 2,
-    Axes = 3,
+    Sword = 1,
+    Hammer = 2,
+    Axe = 3,
     Staff = 4,
     Rod = 5,
     Wand = 6
