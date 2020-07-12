@@ -115,6 +115,16 @@ public class Duel : MonoBehaviour
         return null;
     }
 
+    /* IGNORE. Code to trial Talent implementation
+    Player DoNewMHAttack(Player attacker, Player defender)
+    {
+        // Check if they hit the person.
+        int baseHitChance = attacker.hitChance;
+        string[] hitChanceTalents
+        if (attacker.tier1Talent.id  "PT1SD")
+        return null;
+    }
+    */
 
     Player DoMainHandAttack(Player attacker, Player defender)
     {
@@ -181,7 +191,8 @@ public class Duel : MonoBehaviour
         // attacker Attacks
 
         // Check they hit the person.
-        if (random.Next(1, 100) > attacker.hitChance)
+        
+        if (random.Next(1, 100) > (attacker.hitChance * .5))
         {
             Debug.Log(attacker.username + " took a swing at " + defender.username + " and missed!");
         }

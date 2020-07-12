@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2a1216ed070f4bac898993d3cbd64ef, type: 3}
-  m_Name: PT1O2
+  m_Name: Sword Dexterity
   m_EditorClassIdentifier: 
-  talentID: 
-  talentName: 
-  talentDescription: 
-  primaryStat: 10
-  primaryStatType: 1
-  secodaryStat: 10
-  scondaryStatType: 2
+  talentID: PT1SD
+  talentName: Sword Dexterity
+  talentDescription: 'You''re skills with a Sword are greater.
+
+    + 10% Damage
+
+    +
+    10% Hit Chance'
+  talentTier: 0
   classType: 0
-  weaponType: 1

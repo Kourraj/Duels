@@ -16,53 +16,6 @@ public enum ClassType
     Magical
 }
 
-/*
- --== Physical ==--
-Option 0 = reduce dual-wielding penalty to -25% dmg and -25% hit
-Option 1 = increase damage by 25% if only using one weapon and no shield
-Option 2 = increases your Critical strike chance by 5% and your chance to Hit by 10%.
-Option 3 = Increases your chance to Dodge by 10% and your Resistance by 10%.
- --== Magical ==--
-Option 4 = Add (100-(Dodge%))*0.16% to Dodge and (100-(Resistance%))*0.08 to Resistance.
-Option 5 = Increases Intelligence by 15%. Adds 25% of Intelligence to Strength in damage calculations.
-Option 6 = Every time your opponent resists one of your wand attacks they suffer their Resistance*2 in defendable damage.
-Option 7 = Adds 25% of your Staff's average weapon damage to your armor & grants an additional attack with your staff every 3 rounds.
-            Adds 10% of your Staff's average weapon damage to your Resistance. Adds 9% of your INT in damage to all Staff attacks.
-*/
-public enum T2Talent
-{
-    Option0,
-    Option1,
-    Option2,
-    Option3,
-    Option4,
-    Option5,
-    Option6,
-    Option7
-    
-}
-
-/*
- --== Physical ==--
-Option 0 : Increases the chance to Block with a shield by 5% and inflicts your Speed plus 50% of your Strength damage on a successful Block.
-Option 1 : Grants one additional melee attack every 2 Turns.
-Option 2 : Increases Stamina by 50% and add 25% of Stamina to Strength in damage calculations.
-
- --== Magical ==--
-Option 3 : Reduces your opponent’s Dodge by 10% and Resistance by 10%.
-Option 4 : Regenerate 2.0% of your health at the start of your turn if you receive total damage equal or greater than 4.0% of your health on the previous turn.
-Option 5 : Increases the basic attribute bonuses of your weapons by 100%, and your armor by 25%
-*/
-public enum T3Talent
-{
-    Option0,
-    Option1,
-    Option2,
-    Option3,
-    Option4,
-    Option5
-}
-
 public class Player : MonoBehaviour
 {
     [Header("Base")]
@@ -100,9 +53,9 @@ public class Player : MonoBehaviour
     [Space]
 
     [Header("Talents")]
-    public T1Talent tier1Talent;
-    public T2Talent tier2Talent;
-    public T3Talent tier3Talent;
+    public Talent tier1Talent;
+    public Talent tier2Talent;
+    public Talent tier3Talent;
 
     #region NonChanceEndStats
 

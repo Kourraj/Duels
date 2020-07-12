@@ -373,14 +373,16 @@ MonoBehaviour:
   playerLevel: 1
   mainHand: {fileID: 11400000, guid: 45c39618a120246188e0b02165fa2432, type: 2}
   offHand: {fileID: 0}
-  strength: 0
-  speed: 0
-  perception: 0
-  intelligence: 0
-  stamina: 0
-  resist: 0
-  armour: 0
-  Tier1Talent: {fileID: 0}
+  strength: 220
+  speed: 220
+  perception: 220
+  intelligence: 220
+  stamina: 220
+  resist: 220
+  armour: 220
+  tier1Talent: {fileID: 0}
+  tier2Talent: 0
+  tier3Talent: 0
   classType: 0
   initiative: 100
   defense: 50
@@ -521,17 +523,19 @@ MonoBehaviour:
   maxHP: 2000
   currentHP: 2000
   playerClass: 1
-  playerLevel: 0
+  playerLevel: 1
   mainHand: {fileID: 11400000, guid: c5cdc47772ada5a4bab47eb5baee9599, type: 2}
   offHand: {fileID: 0}
-  strength: 0
-  speed: 0
-  perception: 0
-  intelligence: 0
-  stamina: 0
-  resist: 0
-  armour: 0
-  Tier1Talent: {fileID: 0}
+  strength: 220
+  speed: 220
+  perception: 220
+  intelligence: 220
+  stamina: 220
+  resist: 220
+  armour: 220
+  tier1Talent: {fileID: 0}
+  tier2Talent: 0
+  tier3Talent: 0
   classType: 0
   initiative: 150
   defense: 30

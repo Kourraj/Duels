@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2a1216ed070f4bac898993d3cbd64ef, type: 3}
-  m_Name: MT1O1
+  m_Name: Staff Prowess
   m_EditorClassIdentifier: 
-  talentID: 
-  talentName: 
-  talentDescription: 
-  primaryStat: 10
-  primaryStatType: 1
-  secodaryStat: 10
-  scondaryStatType: 2
+  talentID: MT1SP
+  talentName: Staff Prowess
+  talentDescription: 'You have prowess with a staff.
+
+    + 10% Damage
+
+    + 10%
+    Hit Chance'
+  talentTier: 0
   classType: 1
-  weaponType: 4
