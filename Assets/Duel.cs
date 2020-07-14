@@ -62,11 +62,15 @@ public class Duel : MonoBehaviour
             if (turnCount == 1)
             {
                 // Skills
-                if (DoSkill(first, second))
-                    break;
-                if (DoSkill(second, first))
-                    break;
-            }
+                DoSkill(first);
+                DoSkill(second);
+            } 
+            first.skillTurns -= 1;
+            second.skillTurns -= 1;
+            if (first.skillTurns == 0)
+                EndSkill(first);
+            if (second.skillTurns == 0)
+                EndSkill(second);
 
             // Do Attacks
             victor = DoAttacks(first, second);
@@ -113,29 +117,75 @@ public class Duel : MonoBehaviour
     {
         return null;
     }
-    Player DoSkill(Player attacker, Player defender)
+    void DoSkill(Player attacker)
     {
+        // Warrior Skills
         if (attacker.playerClass == PlayerClass.Warrior)
         {
-            // Skill 1
-            if (true)
+            // Go through each skill (that applies buffs)
+            switch (attacker.skill.id)
             {
-                attacker.mainHand = attacker.mainHand;
+                case "Arms":
+                    attacker.strength = (int)(attacker.strength * 1.25);
+                    attacker.CalcualteStats();
+                    break;
+
+                case "LowStance":
+                    attacker.defense += (int)(attacker.defense * 0.425);
+                    attacker.dodgeChance += 15;
+                    attacker.skillTurns = attacker.stamina / 8;
+                    break;
+
+                case "BarbarianBattleCry":
+                    attacker.resist += (int)(attacker.resist * 0.40);
+                    attacker.defense += (int)(attacker.defense * 0.15);
+                    attacker.CalcualteStats();
+                    attacker.skillTurns = (int)Math.Ceiling((decimal)(attacker.stamina / 30));
+                    break;
+
+                case "ShieldSlam":
+                    attacker.blockChance += 12;
+                    attacker.dodgeChance -= 7;
+                    break;
+
+                case "FortifiedArmour":
+                    attacker.armour += (int)(attacker.armour * 0.25);
+                    attacker.resist += (int)(attacker.resist * 0.15);
+                    attacker.CalcualteStats();
+                    break;
+
+                default:
+                    Debug.Log("No (de)buff bases skill.");
+                    break;
             }
-        }
-        return null;
+        } 
     }
 
-    /* IGNORE. Code to trial Talent implementation
-    Player DoNewMHAttack(Player attacker, Player defender)
+    void EndSkill(Player attacker)
     {
-        // Check if they hit the person.
-        int baseHitChance = attacker.hitChance;
-        string[] hitChanceTalents
-        if (attacker.tier1Talent.id  "PT1SD")
-        return null;
+        // Warrior Skills
+        if (attacker.playerClass == PlayerClass.Warrior)
+        {
+            // Go through each skill (that applies buffs)
+            switch (attacker.skill.id)
+            {
+                case "LowStance":
+                    attacker.defense = (int)(attacker.defense / 1.425);
+                    attacker.dodgeChance -= 15;
+                    break;
+
+                case "BarbarianBattleCry":
+                    attacker.resist = (int)(attacker.resist / 1.40);
+                    attacker.defense = (int)(attacker.defense / 1.15);
+                    attacker.CalcualteStats();
+                    break;
+                    
+                default:
+                    Debug.Log("No (de)buff bases skill.");
+                    break;
+            }
+        }
     }
-    */
 
     Player DoMainHandAttack(Player attacker, Player defender)
     {

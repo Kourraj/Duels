@@ -57,6 +57,9 @@ public class Player : MonoBehaviour
     public Talent tier2Talent;
     public Talent tier3Talent;
 
+    [Space]
+    public Skill skill;
+
     #region NonChanceEndStats
 
     [Space]
@@ -104,6 +107,9 @@ public class Player : MonoBehaviour
     public int resistanceChance;
     #endregion ChanceEndStats
 
+    [HideInInspector]
+    public int skillTurns = -1;
+
     void Awake ()
     {
         // Set classType
@@ -114,6 +120,11 @@ public class Player : MonoBehaviour
         else
             Debug.LogError("Invalid Class Type.");
 
+        CalcualteStats();
+    }
+
+    public void CalcualteStats()
+    {
         // Add weapon bonuses
         // mainHand
         strength += mainHand.strengthBonus;
@@ -162,6 +173,5 @@ public class Player : MonoBehaviour
 
         // Final Stat prep
         currentHP = maxHP;
-
     }
 }
