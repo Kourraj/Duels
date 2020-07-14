@@ -41,7 +41,7 @@ public class Duel : MonoBehaviour
         }
 
         // Stops ∞ turns as they don't deal damage.
-        int turnCount = 0;
+        int turnCount = 1;
         Player victor = null;
         while (true)
         {
@@ -59,11 +59,14 @@ public class Duel : MonoBehaviour
             if (DoAction(second, first))
                 break;
 
-            // Skills
-            if (DoSkill(first, second))
-                break;
-            if (DoSkill(second, first))
-                break;
+            if (turnCount == 1)
+            {
+                // Skills
+                if (DoSkill(first, second))
+                    break;
+                if (DoSkill(second, first))
+                    break;
+            }
 
             // Do Attacks
             victor = DoAttacks(first, second);
@@ -106,12 +109,20 @@ public class Duel : MonoBehaviour
         return attackCount;
     }
 
-    Player DoAction(Player first, Player second)
+    Player DoAction(Player attacker, Player defender)
     {
         return null;
     }
-    Player DoSkill(Player first, Player second)
+    Player DoSkill(Player attacker, Player defender)
     {
+        if (attacker.playerClass == PlayerClass.Warrior)
+        {
+            // Skill 1
+            if (true)
+            {
+                attacker.mainHand = attacker.mainHand;
+            }
+        }
         return null;
     }
 
