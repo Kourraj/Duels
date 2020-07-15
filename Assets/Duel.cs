@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Duel : MonoBehaviour
 {
@@ -9,8 +10,13 @@ public class Duel : MonoBehaviour
     System.Random random;
 
     int duelDamageMult = 1;
-
     public int randomSeed = 5;
+
+    // UI
+    public GameObject content;
+    public Scrollbar VScrollbar;
+    public GameObject baseText;
+
     public void HaveDuel()
     {
         random = new System.Random(randomSeed);
@@ -41,7 +47,7 @@ public class Duel : MonoBehaviour
         }
 
         // Stops ∞ turns as they don't deal damage.
-        int turnCount = 1;
+        int turnCount = 0;
         Player victor = null;
         while (true)
         {
@@ -51,7 +57,7 @@ public class Duel : MonoBehaviour
             if (turnCount >= 100)
                 break;
             // Display the turn
-            Debug.Log("Turn " + turnCount);
+            AddText("Turn " + turnCount);
 
             // Actions
             if (DoAction(first, second))
@@ -84,22 +90,22 @@ public class Duel : MonoBehaviour
                 {
                     int turnDmg = 50 + ((turnCount - 16) * 10);
                     int bleedDmg = random.Next(turnDmg - (turnDmg / 10), turnDmg + (turnDmg / 10));
-                    Debug.Log(second.username + " bleeds for " + bleedDmg + " damage.");
-                    Debug.Log(second.username + " is on " + second.currentHP + "❤");
+                    AddText(second.username + " bleeds for " + bleedDmg + " damage.");
+                    AddText(second.username + " is on " + second.currentHP + "❤");
                 }
                 else if (turnCount % 2 == 0)
                 {
                     int turnDmg = 50 + ((turnCount - 16) * 10);
                     int bleedDmg = random.Next(turnDmg - (turnDmg / 10), turnDmg + (turnDmg / 10));
-                    Debug.Log(first.username + " bleeds for " + bleedDmg + " damage.");
-                    Debug.Log(first.username + " is on " + first.currentHP + "❤");
+                    AddText(first.username + " bleeds for " + bleedDmg + " damage.");
+                    AddText(first.username + " is on " + first.currentHP + "❤");
                 }
             }
         }
 
         // Victory stuff
-        Debug.Log("And the winner is.... " + victor.username);
-        Debug.Log(turnCount);
+        AddText("And the winner is.... " + victor.username);
+        AddText(turnCount);
     }
 
     int CalculateAttacks(Player attacker)
@@ -128,6 +134,7 @@ public class Duel : MonoBehaviour
                 case "Arms":
                     attacker.strength = (int)(attacker.strength * 1.25);
                     attacker.CalcualteStats();
+                    AddText(attacker.username + " flexed their arms!");
                     break;
 
                 case "LowStance":
@@ -155,7 +162,7 @@ public class Duel : MonoBehaviour
                     break;
 
                 default:
-                    Debug.Log("No (de)buff bases skill.");
+                    AddText("No (de)buff bases skill.");
                     break;
             }
         } 
@@ -181,7 +188,7 @@ public class Duel : MonoBehaviour
                     break;
                     
                 default:
-                    Debug.Log("No (de)buff bases skill.");
+                    AddText("No (de)buff bases skill.");
                     break;
             }
         }
@@ -194,15 +201,15 @@ public class Duel : MonoBehaviour
         // Check they hit the person.
         if (random.Next(1, 100) > attacker.hitChance)
         {
-            Debug.Log(attacker.username + " took a swing at " + defender.username + " and missed!");
+            AddText(attacker.username + " took a swing at " + defender.username + " and missed!");
         }
         else if (random.Next(1, 100) <= defender.blockChance)
         {
-            Debug.Log(defender.username + " blocked a hit from " + attacker.username + "!");
+            AddText(defender.username + " blocked a hit from " + attacker.username + "!");
         }
         else if (random.Next(1, 100) <= defender.dodgeChance)
         {
-            Debug.Log(defender.username + " dodged an attack from " + attacker.username + "!");
+            AddText(defender.username + " dodged an attack from " + attacker.username + "!");
         }
         // They hit!
         else
@@ -218,25 +225,25 @@ public class Duel : MonoBehaviour
                     // SUPER CRITICAL!
                     // Double original damage and ignores defence.
                     damage = (int)Math.Floor((damage / ((float)(100 - defender.defense) / 100)) * 2);
-                    Debug.Log(attacker.username + " smashed " + defender.username + " for a SUPER critical hit! They dealt " + damage.ToString() + " damage!");
+                    AddText(attacker.username + " smashed " + defender.username + " for a SUPER critical hit! They dealt " + damage.ToString() + " damage!");
                     defender.currentHP -= damage;
-                    Debug.Log(defender.username + " is on " + defender.currentHP + "❤");
+                    AddText(defender.username + " is on " + defender.currentHP + "❤");
                 }
                 else
                 {
                     // Critical Hit!
                     damage = (int)Math.Floor((damage / ((float)(100 - defender.defense) / 100)) * 1.5);
-                    Debug.Log(attacker.username + " smacked " + defender.username + " for a critical hit! They dealt " + damage.ToString() + " damage!");
+                    AddText(attacker.username + " smacked " + defender.username + " for a critical hit! They dealt " + damage.ToString() + " damage!");
                     defender.currentHP -= damage;
-                    Debug.Log(defender.username + " is on " + defender.currentHP + "❤");
+                    AddText(defender.username + " is on " + defender.currentHP + "❤");
                 }
             }
             else
             {
                 // Just a normal hit.
-                Debug.Log(attacker.username + " hit " + defender.username + " for " + damage.ToString() + " damage!");
+                AddText(attacker.username + " hit " + defender.username + " for " + damage.ToString() + " damage!");
                 defender.currentHP -= damage;
-                Debug.Log(defender.username + " is on " + defender.currentHP + "❤");
+                AddText(defender.username + " is on " + defender.currentHP + "❤");
             }
 
             // Did they die?
@@ -255,15 +262,15 @@ public class Duel : MonoBehaviour
         
         if (random.Next(1, 100) > (attacker.hitChance * .5))
         {
-            Debug.Log(attacker.username + " took a swing at " + defender.username + " and missed!");
+            AddText(attacker.username + " took a swing at " + defender.username + " and missed!");
         }
         else if (random.Next(1, 100) <= defender.blockChance)
         {
-            Debug.Log(defender.username + " blocked a hit from " + attacker.username + "!");
+            AddText(defender.username + " blocked a hit from " + attacker.username + "!");
         }
         else if (random.Next(1, 100) <= defender.dodgeChance)
         {
-            Debug.Log(defender.username + " dodged an attack from " + attacker.username + "!");
+            AddText(defender.username + " dodged an attack from " + attacker.username + "!");
         }
         // They hit!
         else
@@ -280,25 +287,25 @@ public class Duel : MonoBehaviour
                     // SUPER CRITICAL!
                     // Double original damage and ignores defence.
                     damage = (int)Math.Floor((damage / ((float)(100 - defender.defense) / 100)) * 2);
-                    Debug.Log(attacker.username + " smashed " + defender.username + " with their secondary weapon for a SUPER critical hit! They dealt " + damage.ToString() + " damage!");
+                    AddText(attacker.username + " smashed " + defender.username + " with their secondary weapon for a SUPER critical hit! They dealt " + damage.ToString() + " damage!");
                     defender.currentHP -= damage;
-                    Debug.Log(defender.username + " is on " + defender.currentHP + "❤");
+                    AddText(defender.username + " is on " + defender.currentHP + "❤");
                 }
                 else
                 {
                     // Critical Hit!
                     damage = (int)Math.Floor((damage / ((float)(100 - defender.defense) / 100)) * 1.5);
-                    Debug.Log(attacker.username + " smacked " + defender.username + " with their secondary weapon for a critical hit! They dealt " + damage.ToString() + " damage!");
+                    AddText(attacker.username + " smacked " + defender.username + " with their secondary weapon for a critical hit! They dealt " + damage.ToString() + " damage!");
                     defender.currentHP -= damage;
-                    Debug.Log(defender.username + " is on " + defender.currentHP + "❤");
+                    AddText(defender.username + " is on " + defender.currentHP + "❤");
                 }
             }
             else
             {
                 // Just a normal hit.
-                Debug.Log(attacker.username + " hit " + defender.username + " with their secondary weapon for " + damage.ToString() + " damage!");
+                AddText(attacker.username + " hit " + defender.username + " with their secondary weapon for " + damage.ToString() + " damage!");
                 defender.currentHP -= damage;
-                Debug.Log(defender.username + " is on " + defender.currentHP + "❤");
+                AddText(defender.username + " is on " + defender.currentHP + "❤");
             }
 
             // Did they die?
@@ -316,7 +323,7 @@ public class Duel : MonoBehaviour
         // Check they hit the person.
         if (random.Next(1, 100) > attacker.hitChance)
         {
-            Debug.Log(attacker.username + " took a swing at " + defender.username + " and missed!");
+            AddText(attacker.username + " took a swing at " + defender.username + " and missed!");
         }
         // They hit!
         else
@@ -332,17 +339,17 @@ public class Duel : MonoBehaviour
                     // SUPER CRITICAL!
                     // Double original damage and ignores defence.
                     damage = damage * 2;
-                    Debug.Log(attacker.username + " magicked " + defender.username + " for a SUPER critical hit! They dealt " + damage.ToString() + " damage!");
+                    AddText(attacker.username + " magicked " + defender.username + " for a SUPER critical hit! They dealt " + damage.ToString() + " damage!");
                     defender.currentHP -= damage;
-                    Debug.Log(defender.username + " is on " + defender.currentHP + "❤");
+                    AddText(defender.username + " is on " + defender.currentHP + "❤");
                 }
                 else
                 {
                     // Critical Hit!
                     damage = (int)Math.Floor(damage * 1.5);
-                    Debug.Log(attacker.username + " magicked " + defender.username + " for a critical hit! They dealt " + damage.ToString() + " damage!");
+                    AddText(attacker.username + " magicked " + defender.username + " for a critical hit! They dealt " + damage.ToString() + " damage!");
                     defender.currentHP -= damage;
-                    Debug.Log(defender.username + " is on " + defender.currentHP + "❤");
+                    AddText(defender.username + " is on " + defender.currentHP + "❤");
                 }
             }
             else
@@ -350,14 +357,14 @@ public class Duel : MonoBehaviour
                 // Check if it was resisted
                 if (random.Next(1, 100) <= defender.resistanceChance)
                 {
-                    Debug.Log(defender.username + " resisted an attack from " + attacker.username + "!");
+                    AddText(defender.username + " resisted an attack from " + attacker.username + "!");
                 }
                 // Just a normal hit.
                 else
                 {
-                    Debug.Log(attacker.username + " magicked " + defender.username + " for " + damage.ToString() + " damage!");
+                    AddText(attacker.username + " magicked " + defender.username + " for " + damage.ToString() + " damage!");
                     defender.currentHP -= damage;
-                    Debug.Log(defender.username + " is on " + defender.currentHP + "❤");
+                    AddText(defender.username + " is on " + defender.currentHP + "❤");
                 }
             }
 
@@ -387,13 +394,16 @@ public class Duel : MonoBehaviour
                     if (DoMainHandAttack(first, second))
                         return first;
                 else
-                    if (!(first.offHand.weaponType == WeaponType.Wand))
-                        if (DoOffHandAttack(first, second))
-                            return first;
-                    // Wand offhand
-                    if (first.offHand.weaponType == WeaponType.Wand)
-                        if (DoOffHandWandAttack(first, second))
-                            return first;
+                    if (first.offHand != null)
+                    {
+                        if (!(first.offHand.weaponType == WeaponType.Wand))
+                            if (DoOffHandAttack(first, second))
+                                return first;
+                        // Wand offhand
+                        if (first.offHand.weaponType == WeaponType.Wand)
+                            if (DoOffHandWandAttack(first, second))
+                                return first;
+                    }
 
                 firstAttacksMade += 1;
             }
@@ -403,18 +413,30 @@ public class Duel : MonoBehaviour
                     if (DoMainHandAttack(second, first))
                         return second;
                 else
-                    if (!(second.offHand.weaponType == WeaponType.Wand))
-                        if (DoOffHandAttack(second, first))
-                            return second;
-                    // Wand offhand
-                    if (second.offHand.weaponType == WeaponType.Wand)
-                        if (DoOffHandWandAttack(second, first))
-                            return second;
+                    if (second.offHand != null)
+                    {
+                        if (!(second.offHand.weaponType == WeaponType.Wand))
+                            if (DoOffHandAttack(second, first))
+                                return second;
+                        // Wand offhand
+                        if (second.offHand.weaponType == WeaponType.Wand)
+                            if (DoOffHandWandAttack(second, first))
+                                return second;
+                    }
 
                 secondAttacksMade += 1;
             }
 
         }
         return null;
+    }
+
+    void AddText(string text)
+    {
+        Vector3 position = new Vector3(0f, 0f, 0f);
+        Quaternion rotation = new Quaternion(0f, 0f, 0f, 0f);
+        Debug.Log(text);
+        //GameObject newText = (GameObject)Instantiate(baseText, position, rotation);
+        //newText.GetComponent<TMPText>();
     }
 }
