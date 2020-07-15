@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Duel : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class Duel : MonoBehaviour
     public int randomSeed = 5;
 
     // UI
-    public GameObject content;
+    public Transform content;
     public Scrollbar VScrollbar;
     public GameObject baseText;
 
@@ -490,10 +491,14 @@ public class Duel : MonoBehaviour
 
     void AddText(string text)
     {
+        // Instantiate a new text object.
+        // Transform doesn't matter as a layout component of content does that
         Vector3 position = new Vector3(0f, 0f, 0f);
         Quaternion rotation = new Quaternion(0f, 0f, 0f, 0f);
-        Debug.Log(text);
-        //GameObject newText = (GameObject)Instantiate(baseText, position, rotation);
-        //newText.GetComponent<TMPText>();
+        GameObject newText = (GameObject)Instantiate(baseText, position, rotation, content);
+
+        // Get the text part of the TMP Object and set it to the desired value.
+        TMP_Text textComponent = newText.GetComponent<TMP_Text>();
+        textComponent.text = text;
     }
 }
