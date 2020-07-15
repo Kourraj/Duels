@@ -105,7 +105,7 @@ public class Duel : MonoBehaviour
 
         // Victory stuff
         AddText("And the winner is.... " + victor.username);
-        AddText(turnCount);
+        AddText(turnCount.ToString());
     }
 
     int CalculateAttacks(Player attacker)
@@ -138,15 +138,18 @@ public class Duel : MonoBehaviour
                     break;
 
                 case "LowStance":
-                    attacker.defense += (int)(attacker.defense * 0.425);
+                    attacker.defence += (int)(attacker.defence * 0.425);
                     attacker.dodgeChance += 15;
                     attacker.skillTurns = attacker.stamina / 8;
                     break;
 
+                case "Headbutt":
+                    attacker.skillTurns = (int)Math.Ceiling((decimal)(defender.armour / 50));
+                    break;
+
                 case "BarbarianBattleCry":
-                    attacker.resist += (int)(attacker.resist * 0.40);
-                    attacker.defense += (int)(attacker.defense * 0.15);
-                    attacker.CalcualteStats();
+                    attacker.resistanceChance = (int)(attacker.resistanceChance * 1.40);
+                    attacker.defence = (int)(attacker.defence * 1.15);
                     attacker.skillTurns = (int)Math.Ceiling((decimal)(attacker.stamina / 30));
                     break;
 
@@ -156,16 +159,34 @@ public class Duel : MonoBehaviour
                     break;
 
                 case "FortifiedArmour":
-                    attacker.armour += (int)(attacker.armour * 0.25);
-                    attacker.resist += (int)(attacker.resist * 0.15);
+                    attacker.armour = (int)(attacker.armour * 1.25);
                     attacker.CalcualteStats();
+                    attacker.resistanceChance = (int)(attacker.resistanceChance * 1.15);
                     break;
 
                 default:
                     AddText("No (de)buff bases skill.");
                     break;
             }
-        } 
+        }
+        // Mage Skills
+        else if (attacker.playerClass == PlayerClass.Mage)
+        {
+            // Go through each skill (that applies buffs)
+            switch (attacker.skill.id)
+            {
+                case "BloodMastery":
+                    attacker.resist = (int)(attacker.resist * 1.25);
+                    attacker.CalcualteStats();
+                    attacker.maxHP = (int)(attacker.maxHP * 1.25);
+                    attacker.currentHP =  attacker.maxHP - (attacker.maxHP - attacker.currentHP);
+                    break;
+                
+                default:
+                    AddText("No (de)buff bases skill.");
+                    break;
+            }
+        }
     }
 
     void EndSkill(Player attacker)
@@ -177,14 +198,13 @@ public class Duel : MonoBehaviour
             switch (attacker.skill.id)
             {
                 case "LowStance":
-                    attacker.defense = (int)(attacker.defense / 1.425);
+                    attacker.defence = (int)(attacker.defence / 1.425);
                     attacker.dodgeChance -= 15;
                     break;
 
                 case "BarbarianBattleCry":
-                    attacker.resist = (int)(attacker.resist / 1.40);
-                    attacker.defense = (int)(attacker.defense / 1.15);
-                    attacker.CalcualteStats();
+                    attacker.resistanceChance = (int)(attacker.resistanceChance / 1.40);
+                    attacker.defence = (int)(attacker.defence / 1.15);
                     break;
                     
                 default:
@@ -216,15 +236,32 @@ public class Duel : MonoBehaviour
         {
             // Calculate the damage dealt.
             int weapDam = random.Next(attacker.mainHand.minDamage, attacker.mainHand.maxDamage);
-            int damage = (int)Math.Floor((weapDam * attacker.physicalMultiplier) * ((float)(100 - defender.defense) / 100));
+            int damage = (int)Math.Floor((weapDam * attacker.physicalMultiplier) * ((float)(100 - defender.defence) / 100));
             damage *= duelDamageMult;
-            if (random.Next(1, 100) < attacker.criticalStrikeChance)
+            if (random.Next(1, 100) < attacker.criticalStrikeChance  || (attacker.skill.id == "Sledgehammer" && random.Next(1, 100) < attacker.criticalStrikeChance))
             {
                 if (random.Next(1, 100) < 20)
                 {
                     // SUPER CRITICAL!
                     // Double original damage and ignores defence.
-                    damage = (int)Math.Floor((damage / ((float)(100 - defender.defense) / 100)) * 2);
+                    damage = (int)Math.Floor((damage / ((float)(100 - defender.defence) / 100)) * 2);
+                    // Iron Man Skill
+                    if (attacker.skill.id == "IronMan")
+                    {
+                        damage = (int)(damage * 0.7);
+                        if (random.Next(1, 100) <= 25)
+                        {
+                            AddText(defender.username + " activated Iron Man and reflects the critical back!");
+                            AddText(defender.username + " smashed " + attacker.username + " for a SUPER critical hit! They dealt " + damage.ToString() + " damage!");
+                            attacker.currentHP -= damage;
+                            AddText(attacker.username + " is on " + attacker.currentHP + "❤");
+
+                            // We need to end the attack here.
+                            if (defender.currentHP <= 0)
+                                return attacker;
+                            return null;
+                        }
+                    }
                     AddText(attacker.username + " smashed " + defender.username + " for a SUPER critical hit! They dealt " + damage.ToString() + " damage!");
                     defender.currentHP -= damage;
                     AddText(defender.username + " is on " + defender.currentHP + "❤");
@@ -232,10 +269,17 @@ public class Duel : MonoBehaviour
                 else
                 {
                     // Critical Hit!
-                    damage = (int)Math.Floor((damage / ((float)(100 - defender.defense) / 100)) * 1.5);
+                    damage = (int)Math.Floor((damage / ((float)(100 - defender.defence) / 100)) * 1.5);
                     AddText(attacker.username + " smacked " + defender.username + " for a critical hit! They dealt " + damage.ToString() + " damage!");
                     defender.currentHP -= damage;
                     AddText(defender.username + " is on " + defender.currentHP + "❤");
+                }
+
+                if (attacker.skill.id == "Sledgehammer" && defender.defence > 30)
+                {
+                    defender.armour = (int)(defender.armour * 0.97);
+                    defender.CalcualteStats();
+                    AddText("Thanks to " + attacker.username + "'s skill, " + attacker.skill.skillName + " " + defender.username + " lost 3% of their armour!");
                 }
             }
             else
@@ -277,7 +321,7 @@ public class Duel : MonoBehaviour
         {
             // Calculate the damage dealt.
             int weapDam = random.Next(attacker.offHand.minDamage, attacker.offHand.maxDamage);
-            int damage = (int)Math.Floor((weapDam * attacker.physicalMultiplier) * ((float)(100 - defender.defense) / 100));
+            int damage = (int)Math.Floor((weapDam * attacker.physicalMultiplier) * ((float)(100 - defender.defence) / 100));
             damage = (int)Math.Floor(damage * 0.5);
             damage *= duelDamageMult;
             if (random.Next(1, 100) < attacker.criticalStrikeChance)
@@ -286,7 +330,7 @@ public class Duel : MonoBehaviour
                 {
                     // SUPER CRITICAL!
                     // Double original damage and ignores defence.
-                    damage = (int)Math.Floor((damage / ((float)(100 - defender.defense) / 100)) * 2);
+                    damage = (int)Math.Floor((damage / ((float)(100 - defender.defence) / 100)) * 2);
                     AddText(attacker.username + " smashed " + defender.username + " with their secondary weapon for a SUPER critical hit! They dealt " + damage.ToString() + " damage!");
                     defender.currentHP -= damage;
                     AddText(defender.username + " is on " + defender.currentHP + "❤");
@@ -294,7 +338,7 @@ public class Duel : MonoBehaviour
                 else
                 {
                     // Critical Hit!
-                    damage = (int)Math.Floor((damage / ((float)(100 - defender.defense) / 100)) * 1.5);
+                    damage = (int)Math.Floor((damage / ((float)(100 - defender.defence) / 100)) * 1.5);
                     AddText(attacker.username + " smacked " + defender.username + " with their secondary weapon for a critical hit! They dealt " + damage.ToString() + " damage!");
                     defender.currentHP -= damage;
                     AddText(defender.username + " is on " + defender.currentHP + "❤");
@@ -338,7 +382,7 @@ public class Duel : MonoBehaviour
                 {
                     // SUPER CRITICAL!
                     // Double original damage and ignores defence.
-                    damage = damage * 2;
+                    damage += damage;
                     AddText(attacker.username + " magicked " + defender.username + " for a SUPER critical hit! They dealt " + damage.ToString() + " damage!");
                     defender.currentHP -= damage;
                     AddText(defender.username + " is on " + defender.currentHP + "❤");
@@ -390,7 +434,20 @@ public class Duel : MonoBehaviour
             // First's turn to attack.
             if (firstAttacksMade == secondAttacksMade || secondAttackCount == secondAttacksMade)
             {
-                if ((firstAttacksMade % 2) == 0 || first.offHand == null)
+                // Talent Checks.
+                if (second.skillTurns != 0 && second.skill.id == "Headbutt")
+                {
+                    if (random.Next(1, 100) <= first.resistanceChance)
+                        AddText(first.username + " resisted a headbutt from " + second.username + ".");
+                    else
+                    {
+                        secondAttacksMade --;
+                        AddText(second.username + " headbutt " + first.username + "! They lose a turn and " + second.username + " gains one!");
+                        // Pass a while run/skip to second's attack
+                    }
+                }
+                // Normal attacks
+                else if ((firstAttacksMade % 2) == 0 || first.offHand == null)
                     if (DoMainHandAttack(first, second))
                         return first;
                 else
