@@ -72,7 +72,7 @@ public class Player : MonoBehaviour
 
     // % mitigation of physical damage.
     [Range(0, 90)]
-	public int defense;
+	public int defence;
 
     // Multiplier for Physical Damage
     public float physicalMultiplier = 1;
@@ -121,6 +121,9 @@ public class Player : MonoBehaviour
             Debug.LogError("Invalid Class Type.");
 
         CalcualteStats();
+
+        // Finally, set health.
+        currentHP = maxHP;
     }
 
     public void CalcualteStats()
@@ -154,7 +157,7 @@ public class Player : MonoBehaviour
         // Non-Chance Stats
         initiative = (int)((perception + speed * 2) / 20);
 
-        defense = (int)(0.154 * armour);
+        defence = (int)(0.154 * armour);
 
         physicalMultiplier = (float)(((strength * 0.5) + (speed * 0.05) + (perception * 0.1)) / 100);
         // (111 + 11.1 + 22)
@@ -171,8 +174,5 @@ public class Player : MonoBehaviour
         //blockChance = shield;
 
         resistanceChance = (int)(0.234 * resist);
-
-        // Final Stat prep
-        currentHP = maxHP;
     }
 }
