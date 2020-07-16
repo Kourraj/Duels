@@ -2,6 +2,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
+using System.Collections.Generic;
 
 public class Duel : MonoBehaviour
 {
@@ -17,6 +19,9 @@ public class Duel : MonoBehaviour
     public Transform content;
     public Scrollbar VScrollbar;
     public GameObject baseText;
+
+    Queue<string> textQueue = new Queue<string>();
+    bool textUpdating = false;
 
     public void HaveDuel()
     {
@@ -489,16 +494,36 @@ public class Duel : MonoBehaviour
         return null;
     }
 
-    void AddText(string text)
+    public void AddText(string text)
     {
-        // Instantiate a new text object.
-        // Transform doesn't matter as a layout component of content does that
-        Vector3 position = new Vector3(0f, 0f, 0f);
-        Quaternion rotation = new Quaternion(0f, 0f, 0f, 0f);
-        GameObject newText = (GameObject)Instantiate(baseText, position, rotation, content);
+        // Adds the text to the text queue.
+        textQueue.Enqueue(text);
+    }
 
-        // Get the text part of the TMP Object and set it to the desired value.
-        TMP_Text textComponent = newText.GetComponent<TMP_Text>();
-        textComponent.text = text;
+    void Update()
+    {
+        if (!textUpdating && textQueue.Count != 0)
+        {
+            textUpdating = true;
+            StartCoroutine(UpdateText());
+        }
+    }
+
+    IEnumerator UpdateText()
+    {
+        while (textQueue.Count != 0)
+        {
+            yield return new WaitForSeconds(3);
+            // Instantiate a new text object.
+            // Transform doesn't matter as a layout component of content does that
+            Vector3 position = new Vector3(0f, 0f, 0f);
+            Quaternion rotation = new Quaternion(0f, 0f, 0f, 0f);
+            GameObject newText = (GameObject)Instantiate(baseText, position, rotation, content);
+
+            // Get the text part of the TMP Object and set it to the desired value.
+            TMP_Text textComponent = newText.GetComponent<TMP_Text>();
+            textComponent.text = textQueue.Dequeue();
+        }
+        textUpdating = false;
     }
 }
