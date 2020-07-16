@@ -98,14 +98,14 @@ public class Duel : MonoBehaviour
                     int turnDmg = 50 + ((turnCount - 16) * 10);
                     int bleedDmg = random.Next(turnDmg - (turnDmg / 10), turnDmg + (turnDmg / 10));
                     AddText(second.username + " bleeds for " + bleedDmg + " damage.");
-                    AddText(second.username + " is on " + second.currentHP + "❤");
+                    AddText(second.username + " is on " + second.currentHP + "<sprite index=0>");
                 }
                 else if (turnCount % 2 == 0)
                 {
                     int turnDmg = 50 + ((turnCount - 16) * 10);
                     int bleedDmg = random.Next(turnDmg - (turnDmg / 10), turnDmg + (turnDmg / 10));
                     AddText(first.username + " bleeds for " + bleedDmg + " damage.");
-                    AddText(first.username + " is on " + first.currentHP + "❤");
+                    AddText(first.username + " is on " + first.currentHP + "<sprite index=0>");
                 }
             }
         }
@@ -261,7 +261,7 @@ public class Duel : MonoBehaviour
                             AddText(defender.username + " activated Iron Man and reflects the critical back!");
                             AddText(defender.username + " smashed " + attacker.username + " for a SUPER critical hit! They dealt " + damage.ToString() + " damage!");
                             attacker.currentHP -= damage;
-                            AddText(attacker.username + " is on " + attacker.currentHP + "❤");
+                            AddText(attacker.username + " is on " + attacker.currentHP + "<sprite index=0>");
 
                             // We need to end the attack here.
                             if (defender.currentHP <= 0)
@@ -271,7 +271,7 @@ public class Duel : MonoBehaviour
                     }
                     AddText(attacker.username + " smashed " + defender.username + " for a SUPER critical hit! They dealt " + damage.ToString() + " damage!");
                     defender.currentHP -= damage;
-                    AddText(defender.username + " is on " + defender.currentHP + "❤");
+                    AddText(defender.username + " is on " + defender.currentHP + "<sprite index=0>");
                 }
                 else
                 {
@@ -279,7 +279,7 @@ public class Duel : MonoBehaviour
                     damage = (int)Math.Floor((damage / ((float)(100 - defender.defence) / 100)) * 1.5);
                     AddText(attacker.username + " smacked " + defender.username + " for a critical hit! They dealt " + damage.ToString() + " damage!");
                     defender.currentHP -= damage;
-                    AddText(defender.username + " is on " + defender.currentHP + "❤");
+                    AddText(defender.username + " is on " + defender.currentHP + "<sprite index=0>");
                 }
 
                 if (attacker.skill.id == "Sledgehammer" && defender.defence > 30)
@@ -294,7 +294,7 @@ public class Duel : MonoBehaviour
                 // Just a normal hit.
                 AddText(attacker.username + " hit " + defender.username + " for " + damage.ToString() + " damage!");
                 defender.currentHP -= damage;
-                AddText(defender.username + " is on " + defender.currentHP + "❤");
+                AddText(defender.username + " is on " + defender.currentHP + "<sprite index=0>");
             }
 
             // Did they die?
@@ -340,7 +340,7 @@ public class Duel : MonoBehaviour
                     damage = (int)Math.Floor((damage / ((float)(100 - defender.defence) / 100)) * 2);
                     AddText(attacker.username + " smashed " + defender.username + " with their secondary weapon for a SUPER critical hit! They dealt " + damage.ToString() + " damage!");
                     defender.currentHP -= damage;
-                    AddText(defender.username + " is on " + defender.currentHP + "❤");
+                    AddText(defender.username + " is on " + defender.currentHP + "<sprite index=0>");
                 }
                 else
                 {
@@ -348,7 +348,7 @@ public class Duel : MonoBehaviour
                     damage = (int)Math.Floor((damage / ((float)(100 - defender.defence) / 100)) * 1.5);
                     AddText(attacker.username + " smacked " + defender.username + " with their secondary weapon for a critical hit! They dealt " + damage.ToString() + " damage!");
                     defender.currentHP -= damage;
-                    AddText(defender.username + " is on " + defender.currentHP + "❤");
+                    AddText(defender.username + " is on " + defender.currentHP + "<sprite index=0>");
                 }
             }
             else
@@ -356,7 +356,7 @@ public class Duel : MonoBehaviour
                 // Just a normal hit.
                 AddText(attacker.username + " hit " + defender.username + " with their secondary weapon for " + damage.ToString() + " damage!");
                 defender.currentHP -= damage;
-                AddText(defender.username + " is on " + defender.currentHP + "❤");
+                AddText(defender.username + " is on " + defender.currentHP + "<sprite index=0>");
             }
 
             // Did they die?
@@ -392,7 +392,7 @@ public class Duel : MonoBehaviour
                     damage += damage;
                     AddText(attacker.username + " magicked " + defender.username + " for a SUPER critical hit! They dealt " + damage.ToString() + " damage!");
                     defender.currentHP -= damage;
-                    AddText(defender.username + " is on " + defender.currentHP + "❤");
+                    AddText(defender.username + " is on " + defender.currentHP + "<sprite index=0>");
                 }
                 else
                 {
@@ -400,7 +400,7 @@ public class Duel : MonoBehaviour
                     damage = (int)Math.Floor(damage * 1.5);
                     AddText(attacker.username + " magicked " + defender.username + " for a critical hit! They dealt " + damage.ToString() + " damage!");
                     defender.currentHP -= damage;
-                    AddText(defender.username + " is on " + defender.currentHP + "❤");
+                    AddText(defender.username + " is on " + defender.currentHP + "<sprite index=0>");
                 }
             }
             else
@@ -415,7 +415,7 @@ public class Duel : MonoBehaviour
                 {
                     AddText(attacker.username + " magicked " + defender.username + " for " + damage.ToString() + " damage!");
                     defender.currentHP -= damage;
-                    AddText(defender.username + " is on " + defender.currentHP + "❤");
+                    AddText(defender.username + " is on " + defender.currentHP + "<sprite index=0>");
                 }
             }
 
