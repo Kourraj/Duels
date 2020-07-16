@@ -64,7 +64,7 @@ public class Duel : MonoBehaviour
             if (turnCount >= 100)
                 break;
             // Display the turn
-            AddText("Turn " + turnCount);
+            AddText("<style=\"Turn\">Turn " + turnCount);
 
             // Actions
             if (DoAction(first, second))
@@ -497,6 +497,7 @@ public class Duel : MonoBehaviour
 
     public void AddText(string text)
     {
+        // TODO - Allow for text types.
         // Adds the text to the text queue.
         textQueue.Enqueue(text);
     }
