@@ -435,7 +435,7 @@ public class Duel : MonoBehaviour
         int secondAttacksMade = 0;
         // Attacks
 
-        while (firstAttackCount != firstAttacksMade && secondAttackCount != secondAttacksMade)
+        while (firstAttackCount != firstAttacksMade || secondAttackCount != secondAttacksMade)
         {
             // First's turn to attack.
             if (firstAttacksMade == secondAttacksMade || secondAttackCount == secondAttacksMade)
