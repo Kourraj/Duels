@@ -19,6 +19,7 @@ public class Duel : MonoBehaviour
     public Transform content;
     public Scrollbar VScrollbar;
     public GameObject baseText;
+    public int textDelay;
 
     Queue<string> textQueue = new Queue<string>();
     bool textUpdating = false;
@@ -58,7 +59,7 @@ public class Duel : MonoBehaviour
         while (true)
         {
             // Turn Count.
-            turnCount ++;
+            turnCount++;
             // Caps turn count, if no damage happens, the duel won't go on forever.
             if (turnCount >= 100)
                 break;
@@ -76,7 +77,7 @@ public class Duel : MonoBehaviour
                 // Skills
                 DoSkill(first);
                 DoSkill(second);
-            } 
+            }
             first.skillTurns -= 1;
             second.skillTurns -= 1;
             if (first.skillTurns == 0)
@@ -185,9 +186,9 @@ public class Duel : MonoBehaviour
                     attacker.resist = (int)(attacker.resist * 1.25);
                     attacker.CalcualteStats();
                     attacker.maxHP = (int)(attacker.maxHP * 1.25);
-                    attacker.currentHP =  attacker.maxHP - (attacker.maxHP - attacker.currentHP);
+                    attacker.currentHP = attacker.maxHP - (attacker.maxHP - attacker.currentHP);
                     break;
-                
+
                 default:
                     AddText("No (de)buff bases skill.");
                     break;
@@ -212,7 +213,7 @@ public class Duel : MonoBehaviour
                     attacker.resistanceChance = (int)(attacker.resistanceChance / 1.40);
                     attacker.defence = (int)(attacker.defence / 1.15);
                     break;
-                    
+
                 default:
                     AddText("No (de)buff bases skill.");
                     break;
@@ -244,7 +245,7 @@ public class Duel : MonoBehaviour
             int weapDam = random.Next(attacker.mainHand.minDamage, attacker.mainHand.maxDamage);
             int damage = (int)Math.Floor((weapDam * attacker.physicalMultiplier) * ((float)(100 - defender.defence) / 100));
             damage *= duelDamageMult;
-            if (random.Next(1, 100) < attacker.criticalStrikeChance  || (attacker.skill.id == "Sledgehammer" && random.Next(1, 100) < attacker.criticalStrikeChance))
+            if (random.Next(1, 100) < attacker.criticalStrikeChance || (attacker.skill.id == "Sledgehammer" && random.Next(1, 100) < attacker.criticalStrikeChance))
             {
                 if (random.Next(1, 100) < 20)
                 {
@@ -304,12 +305,12 @@ public class Duel : MonoBehaviour
         return null;
     }
 
-    Player DoOffHandAttack (Player attacker, Player defender)
+    Player DoOffHandAttack(Player attacker, Player defender)
     {
         // attacker Attacks
 
         // Check they hit the person.
-        
+
         if (random.Next(1, 100) > (attacker.hitChance * .5))
         {
             AddText(attacker.username + " took a swing at " + defender.username + " and missed!");
@@ -447,7 +448,7 @@ public class Duel : MonoBehaviour
                         AddText(first.username + " resisted a headbutt from " + second.username + ".");
                     else
                     {
-                        secondAttacksMade --;
+                        secondAttacksMade--;
                         AddText(second.username + " headbutt " + first.username + "! They lose a turn and " + second.username + " gains one!");
                         // Pass a while run/skip to second's attack
                     }
@@ -456,7 +457,7 @@ public class Duel : MonoBehaviour
                 else if ((firstAttacksMade % 2) == 0 || first.offHand == null)
                     if (DoMainHandAttack(first, second))
                         return first;
-                else
+                    else
                     if (first.offHand != null)
                     {
                         if (!(first.offHand.weaponType == WeaponType.Wand))
@@ -475,7 +476,7 @@ public class Duel : MonoBehaviour
                 if ((secondAttacksMade % 2) == 0 || second.offHand == null)
                     if (DoMainHandAttack(second, first))
                         return second;
-                else
+                    else
                     if (second.offHand != null)
                     {
                         if (!(second.offHand.weaponType == WeaponType.Wand))
@@ -513,7 +514,6 @@ public class Duel : MonoBehaviour
     {
         while (textQueue.Count != 0)
         {
-            yield return new WaitForSeconds(3);
             // Instantiate a new text object.
             // Transform doesn't matter as a layout component of content does that
             Vector3 position = new Vector3(0f, 0f, 0f);
@@ -523,6 +523,9 @@ public class Duel : MonoBehaviour
             // Get the text part of the TMP Object and set it to the desired value.
             TMP_Text textComponent = newText.GetComponent<TMP_Text>();
             textComponent.text = textQueue.Dequeue();
+
+            // Wait for three seconds before 
+            yield return new WaitForSeconds(textDelay);
         }
         textUpdating = false;
     }

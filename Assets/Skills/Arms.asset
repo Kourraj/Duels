@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e144a28cf4a9453589bac75fb264268, type: 3}
   m_Name: Arms
   m_EditorClassIdentifier: 
-  id: 
-  skillName: 
-  skillDescription: 
+  id: Arms
+  skillName: Arms
+  skillDescription: 'Much stronger arms.
+
+    Does an additional 25% of your Strength
+    in damage each time you hit, reduced by your opponent''s Defense.'
   playerClass: 0
