@@ -75,8 +75,12 @@ public class Duel : MonoBehaviour
             if (turnCount == 1)
             {
                 // Skills
-                DoSkill(first);
-                DoSkill(second);
+                victor = DoSkill(first);
+                if (victor != null)
+                    break;
+                victor = DoSkill(second);
+                if (victor != null)
+                    break;
             }
             first.skillTurns -= 1;
             second.skillTurns -= 1;
@@ -130,7 +134,7 @@ public class Duel : MonoBehaviour
     {
         return null;
     }
-    void DoSkill(Player attacker)
+    Player DoSkill(Player attacker)
     {
         // Warrior Skills
         if (attacker.playerClass == PlayerClass.Warrior)
@@ -158,6 +162,39 @@ public class Duel : MonoBehaviour
                     attacker.resistanceChance = (int)(attacker.resistanceChance * 1.40);
                     attacker.defence = (int)(attacker.defence * 1.15);
                     attacker.skillTurns = (int)Math.Ceiling((decimal)(attacker.stamina / 30));
+                    break;
+
+                case "Charge":
+                    defender.criticalStrikeChance -= (int)((attacker.stamina * 0.1) / 100);
+                    defender.dodgeChance -= (int)((attacker.stamina * 0.1) / 100);
+                    attacker.skillTurns = (int)Math.Ceiling((decimal)(defender.speed / 100));
+
+                    #region QuickAttacks
+
+                    int firstAttackCount = CalculateAttacks(attacker);
+                    int firstAttacksMade = 0;
+                    // Attacks
+
+                    while (firstAttackCount != firstAttacksMade)
+                    {
+                        // Normal attacks
+                        if ((firstAttacksMade % 2) == 0 || attacker.offHand == null)
+                            if (DoMainHandAttack(attacker, defender))
+                                return attacker;
+                            else
+                            if (attacker.offHand != null)
+                            {
+                                if (!(attacker.offHand.weaponType == WeaponType.Wand))
+                                    if (DoOffHandAttack(attacker, defender))
+                                        return attacker;
+                                // Wand offhand
+                                if (attacker.offHand.weaponType == WeaponType.Wand)
+                                    if (DoOffHandWandAttack(attacker, defender))
+                                        return attacker;
+                            }
+                    }
+                    #endregion QuickAttacks
+
                     break;
 
                 case "ShieldSlam":
@@ -189,11 +226,18 @@ public class Duel : MonoBehaviour
                     attacker.currentHP = attacker.maxHP - (attacker.maxHP - attacker.currentHP);
                     break;
 
+                case "Charge":
+                    defender.criticalStrikeChance += (int)((attacker.stamina * 0.1) / 100);
+                    defender.dodgeChance += (int)((attacker.stamina * 0.1) / 100);
+                    break;
+
                 default:
                     AddText("No (de)buff bases skill.");
                     break;
             }
         }
+
+        return null;
     }
 
     void EndSkill(Player attacker)
