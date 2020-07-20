@@ -116,7 +116,7 @@ public class Duel : MonoBehaviour
 
         // Victory stuff
         AddText("And the winner is.... " + victor.username);
-        AddText(turnCount.ToString());
+        Debug.Log(turnCount.ToString() + " turns.");
     }
 
     int CalculateAttacks(Player attacker)
@@ -137,7 +137,11 @@ public class Duel : MonoBehaviour
     Player DoSkill(Player attacker)
     {
         // Make sure we actually have a skill.
-        if ((bool)attacker.skill) return null;
+        if ((bool)attacker.skill)
+        {
+            AddText("No skill selected.");
+            return null;
+        }
 
         // Warrior Skills
         if (attacker.playerClass == PlayerClass.Warrior)
