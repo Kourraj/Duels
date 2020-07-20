@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e144a28cf4a9453589bac75fb264268, type: 3}
-  m_Name: New Skill
+  m_Name: Sledgehammer
   m_EditorClassIdentifier: 
-  id: 
-  skillName: 
-  skillDescription: 
+  id: Sledgehammer
+  skillName: Sledgehammer
+  skillDescription: On attacks with main hand, adds 20% to Critical Strike chance
+    and causes Critical strikes to subtract 3% from opponents armor if their Defense
+    is above 30%.
   playerClass: 0

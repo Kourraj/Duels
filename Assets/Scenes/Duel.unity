@@ -461,10 +461,10 @@ MonoBehaviour:
   stamina: 220
   resist: 220
   armour: 220
-  tier1Talent: {fileID: 0}
-  tier2Talent: {fileID: 0}
+  tier1Talent: {fileID: 11400000, guid: a8790f4ddbef546c0a474f4252566425, type: 2}
+  tier2Talent: {fileID: 11400000, guid: 7eca3e06a829c43f785126d354792d18, type: 2}
   tier3Talent: {fileID: 0}
-  skill: {fileID: 11400000, guid: ce50d0b1951274378884e735b665278b, type: 2}
+  skill: {fileID: 0}
   classType: 0
   initiative: 100
   defence: 0
@@ -689,7 +689,7 @@ MonoBehaviour:
   resist: 220
   armour: 220
   tier1Talent: {fileID: 0}
-  tier2Talent: {fileID: 0}
+  tier2Talent: {fileID: 11400000, guid: 7eca3e06a829c43f785126d354792d18, type: 2}
   tier3Talent: {fileID: 0}
   skill: {fileID: 11400000, guid: ce50d0b1951274378884e735b665278b, type: 2}
   classType: 0
@@ -1331,7 +1331,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1054952738}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.9999999
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

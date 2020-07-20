@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a1216ed070f4bac898993d3cbd64ef, type: 3}
   m_Name: Ambidextrous
   m_EditorClassIdentifier: 
-  id: 
-  talentName: 
-  talentDescription: 
-  talentTier: 0
+  id: Ambidextrous
+  talentName: Ambidextrous
+  talentDescription: reduce dual-wielding penalty to -25% dmg and -25% hit
+  talentTier: 1
   classType: 0

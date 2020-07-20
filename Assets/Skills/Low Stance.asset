@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e144a28cf4a9453589bac75fb264268, type: 3}
   m_Name: Low Stance
   m_EditorClassIdentifier: 
-  id: 
-  skillName: 
-  skillDescription: 
+  id: LowStance
+  skillName: Low Stance
+  skillDescription: Adds 85%- your Defense% divided by 2 to Defense, Adds 15% to
+    Dodge, Lasts Stamina/8 Turns
   playerClass: 0
