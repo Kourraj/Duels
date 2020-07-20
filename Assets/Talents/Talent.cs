@@ -23,4 +23,9 @@ public class Talent : ScriptableObject
     [Header("Conditions")]
     public TalentTier talentTier;
     public ClassType classType;
+
+    public bool CanEquip(Player player, Talent talent)
+    {
+        return (player.classType == classType);
+    }
 }

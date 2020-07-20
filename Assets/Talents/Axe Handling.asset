@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a1216ed070f4bac898993d3cbd64ef, type: 3}
   m_Name: Axe Handling
   m_EditorClassIdentifier: 
-  talentID: PT1AH
+  id: AxeHandling
   talentName: Axe Handling
   talentDescription: 'You know how to hold an Axe properly
 

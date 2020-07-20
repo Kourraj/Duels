@@ -23,7 +23,6 @@ public enum WeaponType
     Wand = 6
 }
 
-
 public enum WeaponRarity
 {
     Green,
@@ -51,5 +50,4 @@ public class Weapon : ScriptableObject
     public int strengthBonus;
     [Tooltip("Amount depends on rarity")]
     public int speedBonus, perceptionBonus, intelligenceBonus, staminaBonus, resistBonus, armourBonus;
-
 }

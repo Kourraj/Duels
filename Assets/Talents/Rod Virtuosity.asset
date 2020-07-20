@@ -10,13 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2a1216ed070f4bac898993d3cbd64ef, type: 3}
-  m_Name: DaggerFinesse
+  m_Name: Rod Virtuosity
   m_EditorClassIdentifier: 
-  id: DaggerFinesse
-  talentName: Dagger Finesse
-  talentDescription: 'You''re skills with a dagger are improved.
+  id: RodVirtuosity
+  talentName: Rod Virtuosity
+  talentDescription: 'You''re good with Rods
 
-    + 10% Critical
-    Hit Chance'
+    + 10% damage
+
+    + 5% critical
+    hit chance'
   talentTier: 0
-  classType: 0
+  classType: 1

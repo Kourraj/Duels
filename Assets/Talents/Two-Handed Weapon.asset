@@ -10,13 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2a1216ed070f4bac898993d3cbd64ef, type: 3}
-  m_Name: DaggerFinesse
+  m_Name: Two-Handed Weapon
   m_EditorClassIdentifier: 
-  id: DaggerFinesse
-  talentName: Dagger Finesse
-  talentDescription: 'You''re skills with a dagger are improved.
-
-    + 10% Critical
-    Hit Chance'
-  talentTier: 0
+  id: Two-HandedWeapon
+  talentName: Two-Handed Weapon
+  talentDescription: 
+  talentTier: 1
   classType: 0

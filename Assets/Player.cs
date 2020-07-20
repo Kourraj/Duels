@@ -57,6 +57,9 @@ public class Player : MonoBehaviour
     public Talent tier2Talent;
     public Talent tier3Talent;
 
+    [Space]
+    public Skill skill;
+
     #region NonChanceEndStats
 
     [Space]
@@ -69,7 +72,7 @@ public class Player : MonoBehaviour
 
     // % mitigation of physical damage.
     [Range(0, 90)]
-	public int defense;
+	public int defence;
 
     // Multiplier for Physical Damage
     public float physicalMultiplier = 1;
@@ -104,6 +107,9 @@ public class Player : MonoBehaviour
     public int resistanceChance;
     #endregion ChanceEndStats
 
+    [HideInInspector]
+    public int skillTurns = -1;
+
     void Awake ()
     {
         // Set classType
@@ -114,18 +120,29 @@ public class Player : MonoBehaviour
         else
             Debug.LogError("Invalid Class Type.");
 
+        CalcualteStats();
+
+        // Finally, set health.
+        currentHP = maxHP;
+    }
+
+    public void CalcualteStats()
+    {
         // Add weapon bonuses
         // mainHand
-        strength += mainHand.strengthBonus;
-        speed += mainHand.strengthBonus;
-        perception += mainHand.perceptionBonus;
-        intelligence += mainHand.intelligenceBonus;
-        stamina += mainHand.staminaBonus;
-        resist += mainHand.resistBonus;
-        armour += mainHand.armourBonus;
+        if (mainHand)
+        {
+            strength += mainHand.strengthBonus;
+            speed += mainHand.strengthBonus;
+            perception += mainHand.perceptionBonus;
+            intelligence += mainHand.intelligenceBonus;
+            stamina += mainHand.staminaBonus;
+            resist += mainHand.resistBonus;
+            armour += mainHand.armourBonus;
+        }
 
         // offHand
-        if (offHand != null)
+        if (offHand)
         {
             strength += offHand.strengthBonus;
             speed += offHand.speedBonus;
@@ -143,11 +160,12 @@ public class Player : MonoBehaviour
         // Non-Chance Stats
         initiative = (int)((perception + speed * 2) / 20);
 
-        defense = (int)(0.154 * armour);
+        defence = (int)(0.154 * armour);
 
-        physicalMultiplier = (float)((strength * 0.5) + (speed * 0.05) + (perception * 0.1) / 100);
+        physicalMultiplier = (float)(((strength * 0.5) + (speed * 0.05) + (perception * 0.1)) / 100);
+        // (111 + 11.1 + 22)
 
-        magicalMultiplier = (float)((intelligence * 0.5) + (speed * 0.05) + (perception * 0.1) / 100);
+        magicalMultiplier = (float)(((intelligence * 0.5) + (speed * 0.05) + (perception * 0.1)) / 100);
 
         // Chance Stats
         hitChance = (int)(70 + (((perception * 0.5) + speed) / 20));
@@ -159,9 +177,129 @@ public class Player : MonoBehaviour
         //blockChance = shield;
 
         resistanceChance = (int)(0.234 * resist);
+    }
 
-        // Final Stat prep
-        currentHP = maxHP;
+    public void ApplyT1Talents(Weapon weapon)
+    {
+        // Tier 1 talents
+        if (tier1Talent)
+        {
+            switch (tier1Talent.id)
+            {
+                // Physical talents
+                case "DaggerFinesse":
+                    if (weapon.weaponType == WeaponType.Dagger)
+                        criticalStrikeChance += 10;
+                    break;
 
+                case "SwordHandling":
+                    if (weapon.weaponType == WeaponType.Sword)
+                    {
+                        physicalMultiplier += 0.1f;
+                        hitChance += 10;
+                    }
+                    break;
+
+                case "HammerMastery":
+                    if (weapon.weaponType == WeaponType.Hammer)
+                        physicalMultiplier += 0.2f;
+                        magicalMultiplier += 0.2f;
+                    break;
+
+                case "AxeHandling":
+                    if (weapon.weaponType == WeaponType.Axe)
+                    {
+                        physicalMultiplier += 0.1f;
+                        criticalStrikeChance += 5;
+                    }
+                    break;
+                // Magical Talents
+                case "StaffProwess":
+                    if (weapon.weaponType == WeaponType.Staff)
+                    {
+                        physicalMultiplier += 0.1f;
+                        hitChance += 10;
+                    }
+                    break;
+                case "RodVirtuosity":
+                    if (weapon.weaponType == WeaponType.Rod)
+                    {
+                        physicalMultiplier += 0.1f;
+                        criticalStrikeChance += 5;
+                    }
+                    break;
+                case "WandWizardry":
+                    if (weapon.weaponType == WeaponType.Wand)
+                    {
+                        physicalMultiplier += 0.2f;
+                        magicalMultiplier += 0.2f;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    public void RemoveT1Talents(Weapon weapon)
+    {
+        // Tier 1 talents
+        if (tier1Talent)
+        {
+            switch (tier1Talent.id)
+            {
+                // Physical talents
+                case "DaggerFinesse":
+                    if (weapon.weaponType == WeaponType.Dagger)
+                        criticalStrikeChance -= 10;
+                    break;
+
+                case "SwordHandling":
+                    if (weapon.weaponType == WeaponType.Sword)
+                    {
+                        physicalMultiplier -= 0.1f;
+                        hitChance -= 10;
+                    }
+                    break;
+
+                case "HammerMastery":
+                    if (weapon.weaponType == WeaponType.Hammer)
+                        physicalMultiplier -= 0.2f;
+                        magicalMultiplier -= 0.2f;
+                    break;
+
+                case "AxeHandling":
+                    if (weapon.weaponType == WeaponType.Axe)
+                    {
+                        physicalMultiplier -= 0.1f;
+                        criticalStrikeChance -= 5;
+                    }
+                    break;
+                // Magical Talents
+                case "StaffProwess":
+                    if (weapon.weaponType == WeaponType.Staff)
+                    {
+                        physicalMultiplier -= 0.1f;
+                        hitChance -= 10;
+                    }
+                    break;
+                case "RodVirtuosity":
+                    if (weapon.weaponType == WeaponType.Rod)
+                    {
+                        physicalMultiplier -= 0.1f;
+                        criticalStrikeChance -= 5;
+                    }
+                    break;
+                case "WandWizardry":
+                    if (weapon.weaponType == WeaponType.Wand)
+                    {
+                        physicalMultiplier -= 0.2f;
+                        magicalMultiplier -= 0.2f;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
