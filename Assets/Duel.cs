@@ -274,7 +274,8 @@ public class Duel : MonoBehaviour
 
     Player DoMainHandAttack(Player attacker, Player defender)
     {
-        // attacker Attacks
+        // Apply T1 skills
+        attacker.ApplyT1Talents(attacker.mainHand);
 
         // Check they hit the person.
         if (random.Next(1, 100) > attacker.hitChance)
@@ -319,7 +320,11 @@ public class Duel : MonoBehaviour
 
                             // We need to end the attack here, so we don't deal any more damage ot send any more text.
                             if (defender.currentHP <= 0)
+                            {
+                                attacker.RemoveT1Talents(attacker.mainHand);
                                 return attacker;
+                            }
+                            attacker.RemoveT1Talents(attacker.mainHand);
                             return null;
                         }
                     }
@@ -354,9 +359,13 @@ public class Duel : MonoBehaviour
 
             // Did they die?
             if (defender.currentHP <= 0)
-                return attacker;
+            {
+                attacker.RemoveT1Talents(attacker.mainHand);
+                return defender;
+            }
         }
 
+        attacker.RemoveT1Talents(attacker.mainHand);
         return null;
     }
 
@@ -419,9 +428,13 @@ public class Duel : MonoBehaviour
 
             // Did they die?
             if (defender.currentHP <= 0)
+            {
+                attacker.RemoveT1Talents(attacker.mainHand);
                 return attacker;
+            }
         }
 
+        attacker.RemoveT1Talents(attacker.mainHand);
         return null;
     }
 
