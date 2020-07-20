@@ -580,6 +580,7 @@ public class Duel : MonoBehaviour
 
     void Update()
     {
+        // Sets the text generation, if it isn't already running, and we have text to add.
         if (!textUpdating && textQueue.Count != 0)
         {
             textUpdating = true;
