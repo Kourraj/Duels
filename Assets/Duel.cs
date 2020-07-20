@@ -294,6 +294,7 @@ public class Duel : MonoBehaviour
         {
             AddText(defender.username + " dodged an attack from " + attacker.username + "!");
         }
+        
         // They hit!
         else
         {
