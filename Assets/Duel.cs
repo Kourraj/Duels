@@ -137,7 +137,7 @@ public class Duel : MonoBehaviour
     Player DoSkill(Player attacker)
     {
         // Make sure we actually have a skill.
-        if ((bool)attacker.skill)
+        if (attacker.skill == null)
         {
             AddText("No skill selected.");
             return null;
@@ -250,7 +250,7 @@ public class Duel : MonoBehaviour
     void EndSkill(Player attacker)
     {
         // Make sure we actually have a skill.
-        if (attacker.skill) return;
+        if (attacker.skill == null) return;
 
         // Warrior Skills
         if (attacker.playerClass == PlayerClass.Warrior)
@@ -312,7 +312,7 @@ public class Duel : MonoBehaviour
                     // Double original damage and ignores defence.
                     damage = (int)Math.Floor((damage / ((float)(100 - defender.defence) / 100)) * 2);
                     // Iron Man Skill
-                    if (attacker.skill && attacker.skill.id == "IronMan")
+                    if (attacker.skill != null && attacker.skill.id == "IronMan")
                     {
                         damage = (int)(damage * 0.7);
                         if (random.Next(1, 100) <= 25)
@@ -398,7 +398,7 @@ public class Duel : MonoBehaviour
             // Calculate the damage dealt.
             int weapDam = random.Next(attacker.offHand.minDamage, attacker.offHand.maxDamage);
             int damage = (int)Math.Floor((weapDam * attacker.physicalMultiplier) * ((float)(100 - defender.defence) / 100));
-            if (attacker.tier2Talent && attacker.tier2Talent.id == "Ambidextrous")
+            if (attacker.tier2Talent != null && attacker.tier2Talent.id == "Ambidextrous")
                 damage = (int)Math.Floor(damage * 0.75);
             else
                 damage = (int)Math.Floor(damage * 0.5);
