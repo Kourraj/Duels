@@ -24,9 +24,17 @@ public class Duel : MonoBehaviour
     Queue<string> textQueue = new Queue<string>();
     bool textUpdating = false;
 
+    public Button DuelButton;
+
     public void HaveDuel()
     {
+        // Disable the duel button so that can't just have it running over and over again.
+        DuelButton.interactable = false;
+
+        // Create a new random using a specific seed (we'll get this from the server)
         random = new System.Random(randomSeed);
+
+        // Calculate which player will go first.
         Player first;
         Player second;
         if (attacker.initiative < defender.initiative)

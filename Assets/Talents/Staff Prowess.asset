@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a1216ed070f4bac898993d3cbd64ef, type: 3}
   m_Name: Staff Prowess
   m_EditorClassIdentifier: 
-  talentID: MT1SP
+  id: StaffProwess
   talentName: Staff Prowess
   talentDescription: 'You have prowess with a staff.
 
