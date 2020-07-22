@@ -24,12 +24,26 @@ public class Duel : MonoBehaviour
     Queue<string> textQueue = new Queue<string>();
     bool textUpdating = false;
 
-    public Button DuelButton;
+    public GameObject PreGameCanvas;
+    public GameObject GameCanvas;
+
+    public void BeginDisplay()
+    {
+        // Enable the duel UI
+        GameCanvas.SetActive(true);
+
+        // Sets the text generation, if it isn't already running, and we have text to add.
+        if (!textUpdating && textQueue.Count != 0)
+        {
+            textUpdating = true;
+            StartCoroutine(UpdateText());
+        }
+    }
 
     public void HaveDuel()
     {
-        // Disable the duel button so that can't just have it running over and over again.
-        DuelButton.interactable = false;
+        // Disable the pre-duel UI
+        PreGameCanvas.SetActive(false);
 
         // Create a new random using a specific seed (we'll get this from the server)
         random = new System.Random(randomSeed);
@@ -584,16 +598,6 @@ public class Duel : MonoBehaviour
         // TODO - Allow for text types.
         // Adds the text to the text queue.
         textQueue.Enqueue(text);
-    }
-
-    void Update()
-    {
-        // Sets the text generation, if it isn't already running, and we have text to add.
-        if (!textUpdating && textQueue.Count != 0)
-        {
-            textUpdating = true;
-            StartCoroutine(UpdateText());
-        }
     }
 
     IEnumerator UpdateText()
