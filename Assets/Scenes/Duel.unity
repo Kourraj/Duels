@@ -470,8 +470,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d95e9321ac745139af85b48475b440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attacker: {fileID: 0}
-  defender: {fileID: 1004871408}
+  player: {fileID: 0}
+  opponent: {fileID: 1004871408}
   randomSeed: 5
   content: {fileID: 254993766}
   VScrollbar: {fileID: 1431372337}
