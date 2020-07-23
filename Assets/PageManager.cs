@@ -30,6 +30,7 @@ public class PageManager : MonoBehaviour, IDragHandler, IEndDragHandler{
         // Percentage of the screen we've swiped
         float width = Screen.height / canvas.scaleFactor;
         Debug.Log(width);
+        
         float percentage = (data.pressPosition.x - data.position.x) / (width);
 
         // Check if we've moved enough
