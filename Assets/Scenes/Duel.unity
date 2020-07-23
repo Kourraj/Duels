@@ -470,7 +470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d95e9321ac745139af85b48475b440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attacker: {fileID: 514561671}
+  attacker: {fileID: 0}
   defender: {fileID: 1004871408}
   randomSeed: 5
   content: {fileID: 254993766}
@@ -480,78 +480,6 @@ MonoBehaviour:
   textDelay: 1
   PreGameCanvas: {fileID: 1038565368}
   GameCanvas: {fileID: 1644921675}
---- !u!1 &514561669
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 514561670}
-  - component: {fileID: 514561671}
-  m_Layer: 0
-  m_Name: Player 1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &514561670
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 514561669}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &514561671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 514561669}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c44c5b57e9fa84c28a7ac907b4e13861, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  username: Ralen
-  maxHP: 3000
-  currentHP: 3000
-  playerClass: 0
-  playerLevel: 1
-  mainHand: {fileID: 11400000, guid: 45c39618a120246188e0b02165fa2432, type: 2}
-  offHand: {fileID: 0}
-  strength: 220
-  speed: 220
-  perception: 220
-  intelligence: 220
-  stamina: 220
-  resist: 220
-  armour: 220
-  tier1Talent: {fileID: 11400000, guid: a8790f4ddbef546c0a474f4252566425, type: 2}
-  tier2Talent: {fileID: 11400000, guid: 7eca3e06a829c43f785126d354792d18, type: 2}
-  tier3Talent: {fileID: 0}
-  skill: {fileID: 0}
-  classType: 0
-  initiative: 100
-  defence: 0
-  physicalMultiplier: 2
-  magicalMultiplier: 1
-  hitChance: 80
-  criticalStrikeChance: 10
-  dodgeChance: 20
-  blockChance: 0
-  resistanceChance: 40
-  skillTurns: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1376,7 +1304,7 @@ GameObject:
   - component: {fileID: 1004871407}
   - component: {fileID: 1004871408}
   m_Layer: 0
-  m_Name: Player 2
+  m_Name: Opponent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1394,7 +1322,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1004871408
 MonoBehaviour:
@@ -1531,7 +1459,7 @@ RectTransform:
   - {fileID: 890388651}
   - {fileID: 536494366}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1741,7 +1669,7 @@ RectTransform:
   - {fileID: 1363597050}
   - {fileID: 2095008825}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2159,7 +2087,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1431372335
 GameObject:
@@ -3033,7 +2961,7 @@ RectTransform:
   - {fileID: 1003741210}
   - {fileID: 1522359574}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

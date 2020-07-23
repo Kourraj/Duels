@@ -1,14 +1,17 @@
 ﻿using System;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+using TMPro;
+
 public class Duel : MonoBehaviour
 {
-    public Player attacker;
-    public Player defender;
+    public Player player;
+    public Player opponent;
 
     System.Random random;
 
@@ -26,6 +29,16 @@ public class Duel : MonoBehaviour
 
     public GameObject PreGameCanvas;
     public GameObject GameCanvas;
+
+    public void Awake ()
+    {
+        SceneManager.LoadScene("PlayerScene", LoadSceneMode.Additive);
+    }
+
+    public void Start()
+    {
+        player = GameObject.Find("Player").GetComponent<Player>();
+    }
 
     public void BeginDisplay()
     {
@@ -51,27 +64,27 @@ public class Duel : MonoBehaviour
         // Calculate which player will go first.
         Player first;
         Player second;
-        if (attacker.initiative < defender.initiative)
+        if (player.initiative < opponent.initiative)
         {
-            first = defender;
-            second = attacker;
+            first = opponent;
+            second = player;
         }
-        else if (defender.initiative < attacker.initiative)
+        else if (opponent.initiative < player.initiative)
         {
-            first = attacker;
-            second = defender;
+            first = player;
+            second = opponent;
         }
         else
         {
             if (random.Next(1) == 1)
             {
-                first = attacker;
-                second = defender;
+                first = player;
+                second = opponent;
             }
             else
             {
-                first = defender;
-                second = attacker;
+                first = opponent;
+                second = player;
             }
         }
 
@@ -97,10 +110,10 @@ public class Duel : MonoBehaviour
             if (turnCount == 1)
             {
                 // Skills
-                victor = DoSkill(first);
+                victor = DoSkill(first, second);
                 if (victor != null)
                     break;
-                victor = DoSkill(second);
+                victor = DoSkill(second, first);
                 if (victor != null)
                     break;
             }
@@ -156,7 +169,7 @@ public class Duel : MonoBehaviour
     {
         return null;
     }
-    Player DoSkill(Player attacker)
+    Player DoSkill(Player attacker, Player defender)
     {
         // Make sure we actually have a skill.
         if (attacker.skill == null)
