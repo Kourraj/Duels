@@ -302,4 +302,10 @@ public class Player : MonoBehaviour
             }
         }
     }
+
+    public int CalculatePower()
+    {
+        // Calculate a power based on stats and stuff
+        return 9001;
+    }
 }

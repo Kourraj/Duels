@@ -4,7 +4,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 // TODO - COMMENT!!!!
-public class PageManager : MonoBehaviour, IDragHandler, IEndDragHandler{
+public class PageManager : MonoBehaviour, IDragHandler, IEndDragHandler
+{
+    [SerializeField]
     private Vector3 panelLocation;
     public float percentThreshold = 0.2f;
     public float easing = 0.5f;
@@ -12,7 +14,7 @@ public class PageManager : MonoBehaviour, IDragHandler, IEndDragHandler{
     [SerializeField]
     private int currentPage = 2;
 
-    public Canvas canvas;
+    public RectTransform canvas;
 
     // Start is called before the first frame update
     void Start(){
@@ -28,9 +30,8 @@ public class PageManager : MonoBehaviour, IDragHandler, IEndDragHandler{
 
     public void OnEndDrag(PointerEventData data){
         // Percentage of the screen we've swiped
-        float width = Screen.height / canvas.scaleFactor;
+        float width = canvas.rect.width;
         Debug.Log(width);
-        
         float percentage = (data.pressPosition.x - data.position.x) / (width);
 
         // Check if we've moved enough
