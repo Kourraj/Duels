@@ -72,7 +72,7 @@ public class Player : MonoBehaviour
 
     // % mitigation of physical damage.
     [Range(0, 90)]
-	public int defence;
+    public int defence;
 
     // Multiplier for Physical Damage
     public float physicalMultiplier = 1;
@@ -110,15 +110,24 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public int skillTurns = -1;
 
-    void Awake ()
+    public void Awake()
     {
-        // Set classType
-        if (playerClass == PlayerClass.Assassin || playerClass == PlayerClass.Warrior)
-            classType = ClassType.Physical;
-        else if (playerClass == PlayerClass.Druid || playerClass == PlayerClass.Mage)
-            classType = ClassType.Magical;
-        else
-            Debug.LogError("Invalid Class Type.");
+        switch(playerClass)
+        {
+            case PlayerClass.Assassin:
+            case PlayerClass.Warrior:
+                classType = ClassType.Physical;
+                break;
+
+            case PlayerClass.Druid:
+            case PlayerClass.Mage:
+                classType = ClassType.Magical;
+                break;
+
+            default:
+                Debug.LogError("Invalid Class Type.");
+                break;
+        }
 
         CalcualteStats();
 
@@ -155,7 +164,7 @@ public class Player : MonoBehaviour
 
         // Calculate final stats
         // Base Stats
-        maxHP = (int)((playerLevel * 50) + strength + (stamina * 4));
+        maxHP = (playerLevel * 50) + strength + (stamina * 4);
 
         // Non-Chance Stats
         initiative = (int)((perception + speed * 2) / 20);
@@ -179,127 +188,55 @@ public class Player : MonoBehaviour
         resistanceChance = (int)(0.234 * resist);
     }
 
-    public void ApplyT1Talents(Weapon weapon)
+    public void RemoveT1Talents(Weapon weapon) => ApplyT1Talents(weapon, true);
+    public void ApplyT1Talents(Weapon weapon) => ApplyT1Talents(weapon, false);
+
+    private void ApplyT1Talents(Weapon weapon, bool remove)
     {
         // Tier 1 talents
-        if (tier1Talent)
+        if (!tier1Talent)
+            return;
+
+        switch (tier1Talent.id)
         {
-            switch (tier1Talent.id)
-            {
-                // Physical talents
-                case "DaggerFinesse":
-                    if (weapon.weaponType == WeaponType.Dagger)
-                        criticalStrikeChance += 10;
-                    break;
+            // Physical talents
+            case "DaggerFinesse" when weapon.weaponType == WeaponType.Dagger:
+                Modify(criticalStrikeChance, 10, remove);
+                break;
 
-                case "SwordHandling":
-                    if (weapon.weaponType == WeaponType.Sword)
-                    {
-                        physicalMultiplier += 0.1f;
-                        hitChance += 10;
-                    }
-                    break;
+            case "SwordHandling" when weapon.weaponType == WeaponType.Sword:
+                Modify(physicalMultiplier, 0.1f, remove);
+                Modify(hitChance, 10, remove);
+                break;
 
-                case "HammerMastery":
-                    if (weapon.weaponType == WeaponType.Hammer)
-                        physicalMultiplier += 0.2f;
-                        magicalMultiplier += 0.2f;
-                    break;
+            case "HammerMastery" when weapon.weaponType == WeaponType.Hammer:
+                Modify(physicalMultiplier, 0.2f, remove);
+                Modify(magicalMultiplier, 0.2f, remove);
+                break;
 
-                case "AxeHandling":
-                    if (weapon.weaponType == WeaponType.Axe)
-                    {
-                        physicalMultiplier += 0.1f;
-                        criticalStrikeChance += 5;
-                    }
-                    break;
-                // Magical Talents
-                case "StaffProwess":
-                    if (weapon.weaponType == WeaponType.Staff)
-                    {
-                        physicalMultiplier += 0.1f;
-                        hitChance += 10;
-                    }
-                    break;
-                case "RodVirtuosity":
-                    if (weapon.weaponType == WeaponType.Rod)
-                    {
-                        physicalMultiplier += 0.1f;
-                        criticalStrikeChance += 5;
-                    }
-                    break;
-                case "WandWizardry":
-                    if (weapon.weaponType == WeaponType.Wand)
-                    {
-                        physicalMultiplier += 0.2f;
-                        magicalMultiplier += 0.2f;
-                    }
-                    break;
-                default:
-                    break;
-            }
+            case "AxeHandling" when weapon.weaponType == WeaponType.Axe:
+                Modify(physicalMultiplier, 0.1f, remove);
+                Modify(criticalStrikeChance, 5, remove);
+                break;
+
+            // Magical Talents
+            case "StaffProwess" when weapon.weaponType == WeaponType.Staff:
+                Modify(physicalMultiplier, 0.1f, remove);
+                Modify(hitChance, 10, remove);
+                break;
+
+            case "RodVirtuosity" when weapon.weaponType == WeaponType.Rod:
+                Modify(physicalMultiplier, 0.1f, remove);
+                Modify(criticalStrikeChance, 5, remove);
+                break;
+
+            case "WandWizardry" when weapon.weaponType == WeaponType.Wand:
+                Modify(physicalMultiplier, 0.2f, remove);
+                Modify(magicalMultiplier, 0.2f, remove);
+                break;
         }
     }
 
-    public void RemoveT1Talents(Weapon weapon)
-    {
-        // Tier 1 talents
-        if (tier1Talent)
-        {
-            switch (tier1Talent.id)
-            {
-                // Physical talents
-                case "DaggerFinesse":
-                    if (weapon.weaponType == WeaponType.Dagger)
-                        criticalStrikeChance -= 10;
-                    break;
-
-                case "SwordHandling":
-                    if (weapon.weaponType == WeaponType.Sword)
-                    {
-                        physicalMultiplier -= 0.1f;
-                        hitChance -= 10;
-                    }
-                    break;
-
-                case "HammerMastery":
-                    if (weapon.weaponType == WeaponType.Hammer)
-                        physicalMultiplier -= 0.2f;
-                        magicalMultiplier -= 0.2f;
-                    break;
-
-                case "AxeHandling":
-                    if (weapon.weaponType == WeaponType.Axe)
-                    {
-                        physicalMultiplier -= 0.1f;
-                        criticalStrikeChance -= 5;
-                    }
-                    break;
-                // Magical Talents
-                case "StaffProwess":
-                    if (weapon.weaponType == WeaponType.Staff)
-                    {
-                        physicalMultiplier -= 0.1f;
-                        hitChance -= 10;
-                    }
-                    break;
-                case "RodVirtuosity":
-                    if (weapon.weaponType == WeaponType.Rod)
-                    {
-                        physicalMultiplier -= 0.1f;
-                        criticalStrikeChance -= 5;
-                    }
-                    break;
-                case "WandWizardry":
-                    if (weapon.weaponType == WeaponType.Wand)
-                    {
-                        physicalMultiplier -= 0.2f;
-                        magicalMultiplier -= 0.2f;
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
+    private int Modify(int value, int byValue, bool remove) => value += byValue * (remove ? -1 : 1);
+    private float Modify(float value, float byValue, bool remove) => value += byValue * (remove ? -1 : 1);
 }
