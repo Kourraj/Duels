@@ -52,17 +52,21 @@ public class PageManager : MonoBehaviour, IDragHandler, IEndDragHandler
                 // Set the new location to the next page's location
                 newLocation += new Vector3(-Screen.width, 0, 0);
             }
+            // If we moved the other way.
             else if(percentage < 0 && currentPage > 1)
             {
                 currentPage--;
                 newLocation += new Vector3(Screen.width, 0, 0);
             }
 
+            // We need to start the movement.
             StartCoroutine(SmoothMove(transform.position, newLocation, easing));
+            // Set the current location to the new location
             panelLocation = newLocation;
         }
         else
         {
+            // We want to move back to our original position.
             StartCoroutine(SmoothMove(transform.position, panelLocation, easing));
         }
     }
